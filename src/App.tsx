@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar"
 
 export default function App() {
   return(
-    <>
-      <Navbar />
-    </>
+  <div className="max-w-5/6">
+    <Navbar />
+  </div>
   )
 }
