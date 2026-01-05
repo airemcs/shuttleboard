@@ -1,1 +1,22 @@
+@font-face {
+  font-family: SF-Pro-Display-Regular;
+  src: url("../src/assets/fonts/sf-pro-display-regular.OTF");
+}
+
+@font-face {
+  font-family: SF-Pro-Display-Medium;
+  src: url("../src/assets/fonts/sf-pro-display-medium.OTF");
+}
+
+@font-face {
+  font-family: SF-Pro-Display-Bold;
+  src: url("../src/assets/fonts/sf-pro-display-bold.OTF");
+}
+
 @import "tailwindcss";
+
+@theme {
+  --font-sf-regular: SF-Pro-Display-Regular, "sans-serif";
+  --font-sf-medium: SF-Pro-Display-Medium, "sans-serif";
+  --font-sf-bold: SF-Pro-Display-Bold, "sans-serif";
+}
