@@ -16,6 +16,19 @@
 @import "tailwindcss";
 
 @theme {
+  --color-primary-green: #2D5A4A;
+  --color-primary-green-hover: #245544;
+  --color-primary-green-light: #E8F0ED;
+
+  --color-primary: #1A2332;
+  --color-secondary: #5A6577;
+  --color-tertiary: #8B95A5;
+
+  --color-background: #FAFBFC;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F5F7F9;
+  --color-background-alt: #F0F3F6;
+
   --font-sf-regular: SF-Pro-Display-Regular, "sans-serif";
   --font-sf-medium: SF-Pro-Display-Medium, "sans-serif";
   --font-sf-bold: SF-Pro-Display-Bold, "sans-serif";
