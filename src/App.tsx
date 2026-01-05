@@ -1,5 +1,9 @@
+import Navbar from "@/components/Navbar"
+
 export default function App() {
   return(
-    <h1 className="text-lg font-sf-regular text-secondary">Welcome to Shuttleboard!</h1>
+    <>
+      <Navbar />
+    </>
   )
 }
