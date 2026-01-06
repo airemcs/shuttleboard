@@ -12,9 +12,9 @@ export default function Navbar() {
       <RxHamburgerMenu className="size-6 lg:hidden" />
 
       <div className="hidden lg:flex gap-4">
-        <Button variant="ghost" text="Home"/>
-        <Button variant="secondary" text="All Events"/>
-        <Button variant="primary" text="Submit Event"/>
+        <Button variant="ghost" size="md" text="Home"/>
+        <Button variant="secondary" size="md" text="All Events"/>
+        <Button variant="primary" size="md" text="Submit Event"/>
       </div>
     </div>
   )
