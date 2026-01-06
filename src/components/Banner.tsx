@@ -11,7 +11,7 @@ export default function Banner() {
 
       <div className="hidden lg:flex flex-row gap-4">
         <Button variant="primary" size="xl" text="Browse All Events" />
-        <Button variant="neutral" size="xl" text="Submit an Event" icon={<FaPlus />} />
+        <Button variant="neutral" size="xl" text="Submit Event" icon={<FaPlus />} />
       </div>
 
       <div className="flex lg:hidden flex-col gap-2">
