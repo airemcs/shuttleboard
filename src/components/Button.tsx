@@ -23,7 +23,7 @@ const baseStyles = `
 const sizeStyles: Record<ButtonSize, string> = {
   md: `
     px-4 py-3
-    text-sm
+    text-base
   `,
   lg: `
     w-full
@@ -57,6 +57,7 @@ const variantStyles: Record<ButtonVariant, string> = {
     font-semibold
     border-1
     border-[#E1E5EA]
+    hover:bg-surface-hover
   `
 };
 

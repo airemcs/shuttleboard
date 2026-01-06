@@ -3,9 +3,9 @@ import { FaPlus } from "react-icons/fa";
 
 export default function Banner() {
   return(
-    <div className="bg-[#EAEEED] py-10 flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <span className="font-sf-bold text-2xl lg:text-5xl text-primary-black">Upcoming Badminton Events in the Philippines</span>
+    <div className="bg-[#EAEEED] py-10 lg:py-20 flex flex-col gap-4 lg:gap-8">
+      <div className="flex flex-col gap-2 lg:gap-4">
+        <span className="font-sf-bold text-2xl lg:text-6xl text-primary-black">Upcoming Badminton Events in the Philippines</span>
         <span className="font-sf-regular text-sm lg:text-xl text-secondary-black">Find tournaments, leagues, and open play sessions across the Philippines.</span>
       </div>
 
