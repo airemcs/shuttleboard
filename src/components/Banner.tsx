@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import Button from "@/components/Button";
 import { FaPlus } from "react-icons/fa";
 
 export default function Banner() {
-  return(
+  return (
     <div className="bg-[#EAEEED] py-10 lg:py-20 flex flex-col gap-4 lg:gap-8">
       <div className="flex flex-col gap-2 lg:gap-4">
         <span className="font-sf-bold text-2xl lg:text-6xl text-primary-black">Upcoming Badminton Events in the Philippines</span>
@@ -10,14 +11,22 @@ export default function Banner() {
       </div>
 
       <div className="hidden lg:flex flex-row gap-4">
-        <Button variant="primary" size="xl" text="Browse All Events" />
-        <Button variant="neutral" size="xl" text="Submit Event" icon={<FaPlus />} />
+        <Link to="/events">
+          <Button variant="primary" size="xl" text="Browse All Events" />
+        </Link>
+        <Link to="/submit">
+          <Button variant="neutral" size="xl" text="Submit Event" icon={<FaPlus />} />
+        </Link>
       </div>
 
       <div className="flex lg:hidden flex-col gap-2">
-        <Button variant="primary" size="lg" text="Browse All Events" />
-        <Button variant="neutral" size="lg" text="Submit an Event" icon={<FaPlus />} />
+        <Link to="/events">
+          <Button variant="primary" size="lg" text="Browse All Events" />
+        </Link>
+        <Link to="/submit">
+          <Button variant="neutral" size="lg" text="Submit an Event" icon={<FaPlus />} />
+        </Link>
       </div>
     </div>
-  )
+  );
 }

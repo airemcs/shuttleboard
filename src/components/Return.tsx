@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { MdNavigateBefore } from "react-icons/md";
 
 type TextLinkSize = "sm" | "md" | "lg";
 
-interface TextLinkProps {
+interface ReturnProps {
   text: string;
   href: string;
   size?: TextLinkSize;
@@ -20,11 +21,11 @@ const iconSizeStyles: Record<TextLinkSize, string> = {
   lg: "text-2xl",
 };
 
-export default function Return({ text, href, size = "md" }: TextLinkProps) {
+export default function Return({ text, href, size = "md" }: ReturnProps) {
   return (
-    <a href={href} className="flex items-center text-secondary-black w-fit">
+    <Link to={href} className="flex items-center text-primary-green w-fit">
       <MdNavigateBefore className={iconSizeStyles[size]} />
       <span className={`font-sf-bold ${sizeStyles[size]}`}>{text}</span>
-    </a>
+    </Link>
   );
 }

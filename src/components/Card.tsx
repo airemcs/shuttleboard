@@ -1,7 +1,9 @@
-import Pill from "@/components/Pill"
-import Next from "@/components/Next"
+import { Link } from "react-router-dom";
+import Pill from "@/components/Pill";
+import Next from "@/components/Next";
 
 interface CardProps {
+  id: number;
   title: string;
   date: string;
   location: string;
@@ -9,25 +11,24 @@ interface CardProps {
   eventType: string;
   skillLevel: string;
   categories: string[];
-  href: string;
 }
 
-export default function Card({ 
-  title, 
-  date, 
-  location, 
-  image, 
-  eventType, 
-  skillLevel, 
-  categories, 
-  href 
+export default function Card({
+  id,
+  title,
+  date,
+  location,
+  image,
+  eventType,
+  skillLevel,
+  categories,
 }: CardProps) {
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
 
   return (
-    <div className="flex flex-col border rounded-2xl min-w-0 overflow-hidden bg-white">
-      <img className="w-full h-48 lg:h-56 object-cover rounded-t-2xl" src={image} alt={title} />
+    <Link to={`/events/${id}`} className="flex flex-col border rounded-2xl min-w-0 overflow-hidden bg-white hover:shadow-md transition-shadow">
+      <img className="w-full h-48 lg:h-56 object-cover" src={image} alt={title} />
       <div className="flex flex-col p-5 gap-y-4">
         <div className="flex flex-col">
           <span className="font-sf-bold text-primary-black truncate text-base lg:text-xl">{title}</span>
@@ -45,7 +46,7 @@ export default function Card({
 
         <div className="flex lg:hidden justify-between border-t border-[#E1E5EA] pt-4">
           <Pill text={skillLevel} />
-          <Next text="Details" size="sm" href={href} />
+          <Next text="Details" size="sm" href={`/events/${id}`} />
         </div>
 
         <div className="hidden lg:flex flex-col gap-y-4">
@@ -53,9 +54,9 @@ export default function Card({
             <Pill variant="primary" text={eventType} />
             <Pill text={skillLevel} />
           </div>
-          <Next text="View Details" size="md" href={href} />
+          <Next text="View Details" size="md" href={`/events/${id}`} />
         </div>
       </div>
-    </div>
-  )
+    </Link>
+  );
 }

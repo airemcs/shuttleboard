@@ -91,7 +91,7 @@ export default function Home() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="hidden lg:flex flex-row pt-30 justify-between">
           <span className="font-sf-bold text-lg text-tertiary-black">UPCOMING EVENTS</span>
-          <Next text="View All" size="lg" href="" />
+          <Next text="View All" size="lg" href="/events" />
         </div>
       </div>
 
@@ -104,6 +104,7 @@ export default function Home() {
         {events.map((event) => (
           <Card
             key={event.id}
+            id={event.id}
             title={event.title}
             date={event.date}
             location={event.location}
@@ -111,7 +112,6 @@ export default function Home() {
             eventType={event.eventType}
             skillLevel={event.skillLevel}
             categories={event.categories}
-            href={event.href}
           />
         ))}
       </div>

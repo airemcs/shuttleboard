@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar"
 import Return from "@/components/Return"
 import Pill from "@/components/Pill"
@@ -11,6 +12,8 @@ import InfoRow from "@/components/InfoRow";
 import AboutSection from "@/components/AboutSection";
 
 export default function Details() {
+  const { id } = useParams();
+  
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">

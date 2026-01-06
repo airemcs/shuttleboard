@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { MdNavigateNext } from "react-icons/md";
 
 type TextLinkSize = "sm" | "md" | "lg";
 
-interface TextLinkProps {
+interface NextProps {
   text: string;
   href: string;
   size?: TextLinkSize;
@@ -20,11 +21,11 @@ const iconSizeStyles: Record<TextLinkSize, string> = {
   lg: "text-2xl",
 };
 
-export default function Next({ text, href, size = "md" }: TextLinkProps) {
+export default function Next({ text, href, size = "md" }: NextProps) {
   return (
-    <a href={href} className="flex items-center text-primary-green w-fit">
+    <Link to={href} className="flex items-center text-primary-green w-fit">
       <span className={`font-sf-bold ${sizeStyles[size]}`}>{text}</span>
       <MdNavigateNext className={iconSizeStyles[size]} />
-    </a>
+    </Link>
   );
 }
