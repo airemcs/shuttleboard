@@ -2,12 +2,14 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonSize = "md" | "lg" | "xl";
 type ButtonVariant = "primary" | "secondary" | "ghost" | "neutral";
+type IconPosition = "left" | "right";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   text?: string;
   icon?: ReactNode;
+  iconPosition?: IconPosition;
 }
 
 const baseStyles = `
@@ -31,6 +33,7 @@ const sizeStyles: Record<ButtonSize, string> = {
     text-base
   `,
   xl: `
+    w-full
     px-6 py-4
     text-md
   `,
@@ -61,12 +64,21 @@ const variantStyles: Record<ButtonVariant, string> = {
   `
 };
 
-export default function Button({ variant = "secondary", size = "md", text, icon, className = "", children, ...props }: ButtonProps) {
+export default function Button({ 
+  variant = "secondary", 
+  size = "md", 
+  text, 
+  icon, 
+  iconPosition = "left",
+  className = "", 
+  children, 
+  ...props 
+}: ButtonProps) {
   const content = text ?? children;
 
   return (
-    <button className={` ${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}{...props}>
-      <span className="inline-flex items-center gap-2">
+    <button className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`} {...props}>
+      <span className={`inline-flex items-center gap-2 ${iconPosition === "right" ? "flex-row-reverse" : ""}`}>
         {icon}
         {content}
       </span>

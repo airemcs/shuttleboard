@@ -1,4 +1,4 @@
-import { MdNavigateNext } from "react-icons/md";
+import { MdNavigateBefore } from "react-icons/md";
 
 type TextLinkSize = "sm" | "md" | "lg";
 
@@ -20,11 +20,11 @@ const iconSizeStyles: Record<TextLinkSize, string> = {
   lg: "text-2xl",
 };
 
-export default function Next({ text, href, size = "md" }: TextLinkProps) {
+export default function Return({ text, href, size = "md" }: TextLinkProps) {
   return (
-    <a href={href} className="flex items-center text-primary-green w-fit">
+    <a href={href} className="flex items-center text-secondary-black w-fit">
+      <MdNavigateBefore className={iconSizeStyles[size]} />
       <span className={`font-sf-bold ${sizeStyles[size]}`}>{text}</span>
-      <MdNavigateNext className={iconSizeStyles[size]} />
     </a>
   );
 }
