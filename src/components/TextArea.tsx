@@ -14,7 +14,7 @@ export default function TextArea({ label, required = false, id, ...props }: Text
 
       <textarea
         id={id}
-        className="w-full py-2.5 px-4 text-base text-primary-black placeholder:text-[#9CA3AF] focus:outline-none rounded-md bg-white border border-[#E1E5EA] resize-none min-h-37.5"
+        className="w-full py-2.5 px-4 text-base text-primary-black placeholder:text-[#9CA3AF] focus:border-primary-green rounded-md bg-white border-2 focus:border-2 border-[#E1E5EA] resize-none min-h-37.5"
         {...props}
       />
     </div>

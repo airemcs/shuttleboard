@@ -12,7 +12,7 @@ export default function Input({ label, required = false, id, ...props }: InputPr
         {label} {required && <span className="text-[#DC2626]">*</span>}
       </label>
 
-      <div className="flex items-center rounded-md bg-white border-2 border-[#E1E5EA]">
+      <div className="flex items-center rounded-md bg-white border-2 border-[#E1E5EA] focus:border-primary-green focus-within:border-primary-green">
         <input
           id={id}
           className="w-full py-2.5 px-4 text-base text-primary-black placeholder:text-[#9CA3AF] focus:outline-none rounded-md"
