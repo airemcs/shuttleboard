@@ -1,10 +1,10 @@
-import { MdNavigateNext } from "react-icons/md";
 import Pill from "@/components/Pill"
+import Next from "@/components/Next"
 
 export default function Card() {
   return (
     <div className="flex flex-col border rounded-2xl min-w-0 overflow-hidden">
-      <img className="w-full h-48 lg:h-56 object-cover rounded-t-2xl" src="./public/delta.jpg" alt="" />
+      <img className="w-full h-48 lg:h-56 object-cover rounded-t-2xl" src="/delta.jpg" alt="" />
       <div className="flex flex-col p-5 gap-y-4">
         <div className="flex flex-col">
           <span className="font-sf-bold text-primary-black truncate text-base lg:text-xl">Manila Open Badminton Tournament 2026</span>
@@ -23,23 +23,16 @@ export default function Card() {
         <div className="flex lg:hidden justify-between border-t border-[#E1E5EA] pt-4">
           <Pill text="Intermediate - Advanced" />
           
-          <div className="flex items-center text-primary-green">
-            <span className="font-sf-medium">Details</span>
-            <MdNavigateNext />
-          </div>
+          <Next text="Details" size="sm" href="" />
         </div>
 
         <div className="hidden lg:flex flex-col gap-y-4">
-          
           <div className="flex gap-x-2">
             <Pill variant="primary" text="Tournament" />
             <Pill text="Intermediate - Advanced" />
           </div>
           
-          <div className="flex items-center text-primary-green">
-            <span className="font-sf-bold cursor-pointer">View Details</span>
-            <MdNavigateNext />
-          </div>
+          <Next text="View Details" size="md" href="" />
         </div>
       </div>
     </div>

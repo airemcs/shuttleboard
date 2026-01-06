@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar"
 import Banner from "@/components/Banner"
+import Card from "@/components/Card"
+import Next from "@/components/Next"
 
 export default function App() {
   return (
@@ -15,6 +17,28 @@ export default function App() {
           <Banner />
         </div>
       </div>
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="hidden lg:flex flex-row pt-32 justify-between">
+          <span className="font-sf-bold text-lg text-tertiary-black">UPCOMING EVENTS</span>
+          <Next text="View All" size="lg" href="" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 py-4 pb-4 lg:pb-32 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex lg:hidden flex-row pt-4 justify-between">
+          <span className="font-sf-bold text-sm text-tertiary-black">UPCOMING EVENTS</span>
+          <Next text="View All" size="sm" href="" />
+        </div>
+        
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+
     </div>
   )
 }
