@@ -17,6 +17,7 @@ const baseStyles = `
   items-center
   shrink-0
   text-xs
+  lg:text-sm
   font-sf-medium
   tracking-wide
   whitespace-nowrap
