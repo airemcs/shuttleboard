@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar"
 import Return from "@/components/Return"
 import Pill from "@/components/Pill"
 import { FaCalendar, FaLayerGroup, FaStar, FaBriefcase } from "react-icons/fa";
-import { MdArrowOutward, MdOutlineSegment } from "react-icons/md";
+import { MdArrowOutward } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
 import Button from "@/components/Button"
@@ -62,7 +62,7 @@ export default function Details() {
               icon={<FaBriefcase className="size-4 text-[#4A5568]" />}
               label="ORGANIZER"
               value={
-                <span className="flex items-center gap-x-1 font-sf-bold text-base text-primary-green">
+                <span className="flex items-center gap-x-1 font-sf-bold text-base text-primary-green cursor-pointer">
                   Manila Badminton Association <MdArrowOutward />
                 </span>
               }
