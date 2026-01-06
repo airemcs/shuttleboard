@@ -17,9 +17,7 @@ const categoryOptions = [
 ];
 
 const eventTypeOptions = [
-  { value: "league", label: "League" },
   { value: "tournament", label: "Tournament" },
-  { value: "open-play", label: "Open Play" },
 ];
 
 export default function Submission() {
@@ -27,7 +25,6 @@ export default function Submission() {
   const [categories, setCategories] = useState<string[]>([]);
   const [description, setDescription] = useState("");
   const [flyer, setFlyer] = useState<File | null>(null);
-
 
   return (
     <div className="min-h-screen bg-[#FAFBFC]">

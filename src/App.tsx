@@ -5,8 +5,8 @@ import Submission from "@/Submission"
 export default function App() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
-      {/* <Home /> */}
-      {/* <Details /> */}
+      <Home />
+      <Details />
       <Submission />
     </div>
   )
