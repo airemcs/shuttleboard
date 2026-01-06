@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonSize = "md" | "lg";
+type ButtonSize = "md" | "lg" | "xl";
 type ButtonVariant = "primary" | "secondary" | "ghost" | "neutral";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,17 +16,23 @@ const baseStyles = `
   tracking-wide
   transition-colors
   cursor-pointer
+  flex
+  justify-center
 `;
 
 const sizeStyles: Record<ButtonSize, string> = {
   md: `
-    px-4 py-2
+    px-4 py-3
     text-sm
   `,
   lg: `
     w-full
     px-5 py-3
     text-base
+  `,
+  xl: `
+    px-6 py-4
+    text-md
   `,
 };
 

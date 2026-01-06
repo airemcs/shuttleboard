@@ -2,8 +2,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Button from "@/components/Button";
 
 export default function Navbar() {
-  return(
-    <div className="w-full flex items-center justify-between p-4 bg-white border-b border-[#E1E5EA]">
+  return (
+    <div className="w-full flex items-center justify-between py-4">
       <div className="flex items-center gap-2.5">
         <div className="bg-primary-green size-10 lg:size-12 rounded-lg"></div>
         <span className="font-sf-bold text-lg lg:text-2xl">Shuttleboard PH</span>
