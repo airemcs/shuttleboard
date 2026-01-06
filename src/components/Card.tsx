@@ -3,7 +3,7 @@ import Next from "@/components/Next"
 
 export default function Card() {
   return (
-    <div className="flex flex-col border rounded-2xl min-w-0 overflow-hidden">
+    <div className="flex flex-col border rounded-2xl min-w-0 overflow-hidden bg-white">
       <img className="w-full h-48 lg:h-56 object-cover rounded-t-2xl" src="/delta.jpg" alt="" />
       <div className="flex flex-col p-5 gap-y-4">
         <div className="flex flex-col">
