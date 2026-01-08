@@ -88,7 +88,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:pt-8">
         <div className="hidden lg:flex flex-row justify-between">
           <span className="font-sf-bold text-lg text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="lg" href="/events" />

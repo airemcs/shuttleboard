@@ -57,7 +57,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   neutral: `
     bg-surface
     text-primary-green
-    font-semibold
+    font-regular
     border-1
     border-[#E1E5EA]
     hover:bg-surface-hover
