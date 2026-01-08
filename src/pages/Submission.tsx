@@ -24,7 +24,7 @@ export default function Submission() {
   const [eventType, setEventType] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [description, setDescription] = useState("");
-  const [flyer, setFlyer] = useState<File | null>(null);
+  // const [flyer, setFlyer] = useState<File | null>(null);
 
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
@@ -124,7 +124,7 @@ export default function Submission() {
 
           <FileUpload
             label="Event Flyer"
-            onChange={setFlyer}
+            // onChange={setFlyer}
           />
         </div>
 
