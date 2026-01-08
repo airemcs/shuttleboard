@@ -29,15 +29,15 @@ export default function Submission() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Navbar />
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl lg:max-w-2xl px-4 sm:px-6 lg:px-8 flex flex-col gap-y-6 py-6 lg:py-8">
+      <div className="mx-auto max-w-7xl md:max-w-2xl px-4 sm:px-6 md:px-8 flex flex-col gap-y-6 py-6 md:py-8">
         <div className="flex flex-col">
-          <span className="font-sf-bold text-2xl lg:text-4xl text-primary-black">Submit an Event</span>
-          <span className="font-sf-regular text-sm lg:text-lg text-secondary-black">Please ensure all information is accurate and complete before submitting.</span>
+          <span className="font-sf-bold text-2xl md:text-4xl text-primary-black">Submit an Event</span>
+          <span className="font-sf-regular text-sm md:text-lg text-secondary-black">Please ensure all information is accurate and complete before submitting.</span>
         </div>
 
         <div className="flex flex-col gap-y-5">
@@ -128,19 +128,19 @@ export default function Submission() {
           />
         </div>
 
-        <div className="flex lg:hidden flex-col gap-y-3 items-center">
+        <div className="flex md:hidden flex-col gap-y-3 items-center">
           <Button variant="primary" size="lg" text="Submit Event" />
           <span className="font-sf-regular text-xs text-tertiary-black">Submissions are reviewed before publishing</span>
         </div>
 
-        <div className="hidden lg:flex flex-col gap-y-3 items-center">
+        <div className="hidden md:flex flex-col gap-y-3 items-center">
           <Button variant="primary" size="xl" text="Submit Event" />
           <span className="font-sf-regular text-base text-tertiary-black">Submissions are reviewed before publishing</span>
         </div>
       </div>
 
       <div className="w-full bg-[#FAFBFC] border-t border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Footer />
         </div>
       </div>

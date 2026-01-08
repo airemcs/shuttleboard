@@ -17,23 +17,23 @@ export default function Details() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Navbar />
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl lg:max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-y-4 lg:gap-y-6 py-6 lg:py-8">
+      <div className="mx-auto max-w-7xl md:max-w-4xl px-4 sm:px-6 md:px-8">
+        <div className="flex flex-col gap-y-4 md:gap-y-6 py-6 md:py-8">
           <Return text="Back to Events" href="/" size="sm" />
 
-          <img className="w-full h-48 lg:h-80 object-cover rounded-xl" src="/delta.jpg" />
+          <img className="w-full h-48 md:h-80 object-cover rounded-xl" src="/delta.jpg" />
 
           <div className="flex gap-2">
             <Pill variant="primary" text="Tournament" />
             <Pill text="Intermediate - Advanced" />
           </div>
 
-          <span className="font-sf-bold text-2xl lg:text-4xl">Manila Open Badminton Tournament 2026</span>
+          <span className="font-sf-bold text-2xl md:text-4xl">Manila Open Badminton Tournament 2026</span>
 
           <div className="p-5 border bg-white border-[#E1E5EA] rounded-2xl">
             <InfoRow
@@ -86,13 +86,13 @@ export default function Details() {
 
           <div className="flex flex-col items-center gap-y-4">
             <Button variant="primary" size="xl" text="Register for Event" icon={<MdArrowOutward />} iconPosition="right" />
-            <span className="font-sf-regular text-tertiary-black text-sm lg:text-base">Source: Organizer's Facebook Page</span>
+            <span className="font-sf-regular text-tertiary-black text-sm md:text-base">Source: Organizer's Facebook Page</span>
           </div>
         </div>
       </div>
 
       <div className="w-full bg-[#FAFBFC] border-t border-[#E1E5EA]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
             <Footer />
           </div>
         </div>

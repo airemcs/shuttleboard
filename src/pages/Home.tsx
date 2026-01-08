@@ -77,26 +77,26 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Navbar />
         </div>
       </div>
       
       <div className="bg-[#EAEEED]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Banner />
         </div>
       </div>
       
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:pt-8">
-        <div className="hidden lg:flex flex-row justify-between">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 md:pt-8">
+        <div className="hidden md:flex flex-row justify-between">
           <span className="font-sf-bold text-lg text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="lg" href="/events" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 py-4 pb-8 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex lg:hidden flex-row pt-4 justify-between">
+      <div className="grid grid-cols-1 py-4 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="flex md:hidden flex-row pt-4 justify-between">
           <span className="font-sf-bold text-sm text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="sm" href="/events" />
         </div>
@@ -117,7 +117,7 @@ export default function Home() {
       </div>
 
       <div className="w-full bg-white border-t border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Footer />
         </div>
       </div>

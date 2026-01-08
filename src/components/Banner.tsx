@@ -4,13 +4,13 @@ import { FaPlus } from "react-icons/fa";
 
 export default function Banner() {
   return (
-    <div className="bg-[#EAEEED] py-10 lg:py-20 flex flex-col gap-4 lg:gap-8">
-      <div className="flex flex-col gap-2 lg:gap-4">
-        <span className="font-sf-bold text-2xl lg:text-6xl text-primary-black">Upcoming Badminton Events in the Philippines</span>
-        <span className="font-sf-regular text-sm lg:text-xl text-secondary-black">Find tournaments, leagues, and open play sessions across the Philippines.</span>
+    <div className="bg-[#EAEEED] py-10 md:py-20 flex flex-col gap-4 md:gap-8">
+      <div className="flex flex-col gap-2 md:gap-4">
+        <span className="font-sf-bold text-2xl md:text-6xl text-primary-black">Upcoming Badminton Events in the Philippines</span>
+        <span className="font-sf-regular text-sm md:text-xl text-secondary-black">Find tournaments, leagues, and open play sessions across the Philippines.</span>
       </div>
 
-      <div className="hidden lg:flex flex-row gap-4">
+      <div className="hidden md:flex flex-row gap-4">
         <Link to="/events">
           <Button variant="primary" size="xl" text="Browse All Events" />
         </Link>
@@ -19,7 +19,7 @@ export default function Banner() {
         </Link>
       </div>
 
-      <div className="flex lg:hidden flex-col gap-2">
+      <div className="flex md:hidden flex-col gap-2">
         <Link to="/events">
           <Button variant="primary" size="lg" text="Browse All Events" />
         </Link>

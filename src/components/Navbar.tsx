@@ -24,12 +24,12 @@ export default function Navbar() {
     <div className="w-full">
       <div className="flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="bg-primary-green size-10 lg:size-12 rounded-lg"></div>
-          <span className="font-sf-bold text-lg lg:text-2xl">Shuttleboard PH</span>
+          <div className="bg-primary-green size-10 md:size-12 rounded-lg"></div>
+          <span className="font-sf-bold text-lg md:text-2xl">Shuttleboard PH</span>
         </Link>
 
         <button 
-          className="lg:hidden p-2 cursor-pointer"
+          className="md:hidden p-2 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           <RxHamburgerMenu 
@@ -44,7 +44,7 @@ export default function Navbar() {
           />
         </button>
 
-        <div className="hidden lg:flex gap-4">
+        <div className="hidden md:flex gap-4">
           <Link to="/">
             <Button variant={getVariant("/")} size="md" text="Home" />
           </Link>
@@ -58,7 +58,7 @@ export default function Navbar() {
       </div>
 
       <div 
-        className={`grid lg:hidden transition-all duration-300 ease-in-out ${
+        className={`grid md:hidden transition-all duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
