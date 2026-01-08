@@ -23,7 +23,7 @@ export default function Details() {
       </div>
 
       <div className="mx-auto max-w-7xl lg:max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-y-4 lg:gap-y-6 py-8">
+        <div className="flex flex-col gap-y-4 lg:gap-y-6 py-6 lg:py-8">
           <Return text="Back to Events" href="/" size="sm" />
 
           <img className="w-full h-48 lg:h-80 object-cover rounded-xl" src="/delta.jpg" />

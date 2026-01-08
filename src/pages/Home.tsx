@@ -10,7 +10,7 @@ const events = [
     title: "Manila Open Badminton Tournament 2026",
     date: "March 12 - 14, 2026",
     location: "Manila Sports Complex, Manila",
-    image: "/delta.jpg",
+    image: "/pbad.jpg",
     eventType: "Tournament",
     skillLevel: "Intermediate - Advanced",
     categories: ["Men's Doubles", "Women's Doubles", "Mixed Doubles", "Singles"],
@@ -32,7 +32,7 @@ const events = [
     title: "Davao Open Play Session",
     date: "January 20, 2026",
     location: "Davao Recreation Center, Davao",
-    image: "/delta.jpg",
+    image: "/rmes.jpg",
     eventType: "Open Play",
     skillLevel: "Beginner - Intermediate",
     categories: ["Men's Doubles", "Women's Doubles"],
@@ -43,7 +43,7 @@ const events = [
     title: "Quezon City Junior Tournament",
     date: "February 8 - 9, 2026",
     location: "QC Sports Arena, Quezon City",
-    image: "/delta.jpg",
+    image: "/shuttleforce.jpg",
     eventType: "Tournament",
     skillLevel: "Junior",
     categories: ["Boys Singles", "Girls Singles", "Boys Doubles", "Girls Doubles"],
@@ -54,7 +54,7 @@ const events = [
     title: "Makati Corporate Badminton Cup",
     date: "June 29, 2026",
     location: "Makati Coliseum, Makati",
-    image: "/delta.jpg",
+    image: "/none.jpg",
     eventType: "Tournament",
     skillLevel: "All Levels",
     categories: ["Men's Doubles", "Women's Doubles", "Mixed Doubles"],
@@ -65,7 +65,7 @@ const events = [
     title: "Shuttle Force Smash Cup 2026",
     date: "July 15 - 17, 2026",
     location: "SM Mall of Asia Arena, Pasay",
-    image: "/delta.jpg",
+    image: "/none.jpg",
     eventType: "Tournament",
     skillLevel: "Advanced",
     categories: ["Men's Singles", "Women's Singles", "Men's Doubles", "Women's Doubles", "Mixed Doubles"],
@@ -88,14 +88,14 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="hidden lg:flex flex-row pt-30 justify-between">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="hidden lg:flex flex-row justify-between">
           <span className="font-sf-bold text-lg text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="lg" href="/events" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 py-4 pb-8 lg:pb-32 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 py-4 pb-8 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex lg:hidden flex-row pt-4 justify-between">
           <span className="font-sf-bold text-sm text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="sm" href="/events" />
