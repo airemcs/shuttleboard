@@ -4,6 +4,7 @@ import Tabs from "@/components/Tab";
 import Chip from "@/components/Chip";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
+import { FiX } from "react-icons/fi";
 
 const events = [
   {
@@ -61,8 +62,8 @@ const events = [
   {
     id: 5,
     title: "Makati Corporate Badminton Cup",
-    date: "June 29, 2025",
-    dateValue: new Date("2025-06-29"),
+    date: "June 29, 2026",
+    dateValue: new Date("2026-06-29"),
     location: "Makati Coliseum, Makati",
     city: "makati",
     image: "/none.jpg",
@@ -124,11 +125,24 @@ export default function Events() {
 
   const today = new Date();
 
+  // Check if any filters are active
+  const hasActiveFilters = date || city || type || level;
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setDate("");
+    setCity("");
+    setType("");
+    setLevel("");
+  };
+
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
+      // Tab filter (upcoming/past)
       if (activeTab === "upcoming" && event.dateValue < today) return false;
       if (activeTab === "past" && event.dateValue >= today) return false;
 
+      // Date filter
       if (date) {
         const eventDate = event.dateValue;
         const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -147,14 +161,20 @@ export default function Events() {
         if (date === "this-year" && (eventDate < startOfYear || eventDate > endOfYear)) return false;
       }
 
+      // City filter
       if (city && event.city !== city) return false;
+
+      // Type filter
       if (type && event.eventType !== type) return false;
+
+      // Level filter
       if (level && event.skillLevel !== level) return false;
 
       return true;
     });
   }, [activeTab, date, city, type, level]);
 
+  // Calculate counts for tabs
   const allCount = events.length;
   const upcomingCount = events.filter((e) => e.dateValue >= today).length;
   const pastCount = events.filter((e) => e.dateValue < today).length;
@@ -176,7 +196,7 @@ export default function Events() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-y-5 py-6 md:py-8">
         <span className="font-sf-bold text-2xl lg:text-4xl text-primary-black">All Badminton Events</span>
 
-        <div className="flex md:hidden flex-col gap-y-5">
+        <div className="flex lg:hidden flex-col gap-y-5">
           <Tabs tabs={tabs} defaultValue="all" onChange={setActiveTab} />
 
           <div className="flex flex-wrap gap-2">
@@ -184,16 +204,35 @@ export default function Events() {
             <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
             <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <Chip label="Level" options={levelOptions} value={level} onChange={setLevel} />
+            
+            {hasActiveFilters && (
+              <button
+                onClick={clearAllFilters}
+                className="flex items-center gap-1.5 px-4 rounded-full text-sm font-sf-medium text-[#DC2626] hover:bg-red-50 transition-colors cursor-pointer">
+                <FiX className="size-4" />
+                Clear All
+              </button>
+            )}
           </div>
         </div>
 
-        <div className="hidden md:flex flex-row gap-y-5 items-center">
+        <div className="hidden lg:flex flex-row gap-y-5 items-center">
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
             <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
             <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <Chip label="Level" options={levelOptions} value={level} onChange={setLevel} />
+            
+            {hasActiveFilters && (
+              <button
+                onClick={clearAllFilters}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-sf-medium text-[#DC2626] hover:bg-red-50 transition-colors cursor-pointer"
+              >
+                <FiX className="size-4" />
+                Clear All
+              </button>
+            )}
           </div>
 
           <div className="flex-2">

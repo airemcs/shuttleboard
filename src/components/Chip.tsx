@@ -21,6 +21,10 @@ export default function Chip({ label, options, value, onChange }: ChipProps) {
   const selectedOption = options.find((opt) => opt.value === selected);
 
   useEffect(() => {
+    setSelected(value || undefined);
+  }, [value]);
+
+  useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (chipRef.current && !chipRef.current.contains(event.target as Node)) {
         setIsOpen(false);
