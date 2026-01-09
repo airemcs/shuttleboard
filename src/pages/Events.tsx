@@ -165,7 +165,6 @@ export default function Events() {
     });
   }, [activeTab, date, city, type, level]);
 
-  // Calculate counts for tabs
   const allCount = events.length;
   const upcomingCount = events.filter((e) => e.dateValue >= today).length;
   const pastCount = events.filter((e) => e.dateValue < today).length;
@@ -179,15 +178,15 @@ export default function Events() {
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Navbar />
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-y-5 py-6 md:py-8">
-        <span className="font-sf-bold text-2xl lg:text-4xl text-primary-black">All Badminton Events</span>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 flex flex-col gap-y-5 py-6 md:py-8">
+        <span className="font-sf-bold text-2xl md:text-4xl text-primary-black">All Badminton Events</span>
 
-        <div className="flex lg:hidden flex-col gap-y-5">
+        <div className="flex md:hidden flex-col gap-y-5">
           <Tabs tabs={tabs} defaultValue="all" onChange={setActiveTab} />
 
           <div className="flex flex-wrap gap-2">
@@ -207,7 +206,7 @@ export default function Events() {
           </div>
         </div>
 
-        <div className="hidden lg:flex flex-row gap-y-5 items-center">
+        <div className="hidden md:flex flex-row gap-y-5 items-center">
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
@@ -239,7 +238,7 @@ export default function Events() {
           </span>
           
           {filteredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-4">
               {filteredEvents.map((event) => (
                 <Card
                   key={event.id}
