@@ -50,7 +50,7 @@ const events = [
     id: 4,
     title: "Quezon City Junior Tournament",
     date: "February 8 - 9, 2026",
-    dateValue: new Date("2026-02-08"),
+    dateValue: new Date("2025-02-08"),
     location: "QC Sports Arena, Quezon City",
     city: "quezon-city",
     image: "/shuttleforce.jpg",
@@ -124,11 +124,8 @@ export default function Events() {
   const [level, setLevel] = useState("");
 
   const today = new Date();
-
-  // Check if any filters are active
   const hasActiveFilters = date || city || type || level;
 
-  // Clear all filters
   const clearAllFilters = () => {
     setDate("");
     setCity("");
@@ -138,7 +135,6 @@ export default function Events() {
 
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
-      // Tab filter (upcoming/past)
       if (activeTab === "upcoming" && event.dateValue < today) return false;
       if (activeTab === "past" && event.dateValue >= today) return false;
 
@@ -161,13 +157,8 @@ export default function Events() {
         if (date === "this-year" && (eventDate < startOfYear || eventDate > endOfYear)) return false;
       }
 
-      // City filter
       if (city && event.city !== city) return false;
-
-      // Type filter
       if (type && event.eventType !== type) return false;
-
-      // Level filter
       if (level && event.skillLevel !== level) return false;
 
       return true;
@@ -265,7 +256,7 @@ export default function Events() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-16 text-center">
-              <span className="font-sf-medium text-lg text-[#6B7280]">No events found</span>
+              <span className="font-sf-medium text-lg text-[#6B7280]">No Event Found</span>
               <span className="font-sf-regular text-sm text-[#9CA3AF]">Try adjusting your filters</span>
             </div>
           )}

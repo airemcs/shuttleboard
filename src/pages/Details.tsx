@@ -26,7 +26,7 @@ export default function Details() {
         <div className="flex flex-col gap-y-4 md:gap-y-6 py-6 md:py-8">
           <Return text="Back to Events" href="/" size="sm" />
 
-          <img className="w-full h-48 md:h-80 object-cover rounded-xl" src="/delta.jpg" />
+          <img className="w-full h-48 md:h-80 object-cover object-top rounded-xl" src="/delta.jpg" />
 
           <div className="flex gap-2">
             <Pill variant="primary" text="Tournament" />
