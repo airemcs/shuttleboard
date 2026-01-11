@@ -1,0 +1,17 @@
+export interface Event {
+  id: number;
+  title: string;
+  date: string;
+  dateValue: string;
+  location: string;
+  city: string;
+  image: string;
+  eventType: string;
+  skillLevel: string;
+  skillLevelDisplay: string;
+  categories: string[];
+  organizer: string;
+  organizerLink: string;
+  registrationLink: string;
+  description: string[];
+}

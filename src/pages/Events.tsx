@@ -5,90 +5,12 @@ import Chip from "@/components/Chip";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
 import { FiX } from "react-icons/fi";
+import eventsData from "@/data/events.json";
+import type { Event } from "@/types/event";
 
-const events = [
-  {
-    id: 1,
-    title: "Manila Open Badminton Tournament 2026",
-    date: "March 12 - 14, 2026",
-    dateValue: new Date("2026-03-12"),
-    location: "Manila Sports Complex, Manila",
-    city: "manila",
-    image: "/pbad.jpg",
-    eventType: "tournament",
-    skillLevel: "intermediate",
-    skillLevelDisplay: "Intermediate - Advanced",
-    categories: ["Men's Doubles", "Women's Doubles", "Mixed Doubles", "Singles"],
-  },
-  {
-    id: 2,
-    title: "Cebu City Badminton League",
-    date: "Every Saturday, 2026",
-    dateValue: new Date("2026-06-01"),
-    location: "Cebu Sports Hub, Cebu City",
-    city: "cebu",
-    image: "/delta.jpg",
-    eventType: "league",
-    skillLevel: "all",
-    skillLevelDisplay: "[Upper/Lower] A, B, C, D, E, F",
-    categories: ["Men's Singles", "Women's Singles", "Mixed Doubles"],
-  },
-  {
-    id: 3,
-    title: "Davao Open Play Session",
-    date: "January 20, 2026",
-    dateValue: new Date("2026-01-20"),
-    location: "Davao Recreation Center, Davao",
-    city: "davao",
-    image: "/rmes.jpg",
-    eventType: "open-play",
-    skillLevel: "beginner",
-    skillLevelDisplay: "Beginner - Intermediate",
-    categories: ["Men's Doubles", "Women's Doubles"],
-  },
-  {
-    id: 4,
-    title: "Quezon City Junior Tournament",
-    date: "February 8 - 9, 2026",
-    dateValue: new Date("2025-02-08"),
-    location: "QC Sports Arena, Quezon City",
-    city: "quezon-city",
-    image: "/shuttleforce.jpg",
-    eventType: "tournament",
-    skillLevel: "beginner",
-    skillLevelDisplay: "Junior",
-    categories: ["Boys Singles", "Girls Singles", "Boys Doubles", "Girls Doubles"],
-  },
-  {
-    id: 5,
-    title: "Makati Corporate Badminton Cup",
-    date: "June 29, 2026",
-    dateValue: new Date("2026-06-29"),
-    location: "Makati Coliseum, Makati",
-    city: "makati",
-    image: "/none.jpg",
-    eventType: "tournament",
-    skillLevel: "all",
-    skillLevelDisplay: "All Levels",
-    categories: ["Men's Doubles", "Women's Doubles", "Mixed Doubles"],
-  },
-  {
-    id: 6,
-    title: "Shuttle Force Smash Cup 2026",
-    date: "July 15 - 17, 2026",
-    dateValue: new Date("2026-07-15"),
-    location: "SM Mall of Asia Arena, Pasay",
-    city: "pasay",
-    image: "/none.jpg",
-    eventType: "tournament",
-    skillLevel: "advanced",
-    skillLevelDisplay: "Advanced",
-    categories: ["Men's Singles", "Women's Singles", "Men's Doubles", "Women's Doubles", "Mixed Doubles"],
-  }
-];
+const events: Event[] = eventsData;
 
 const dateOptions = [
-  { label: "Today", value: "today" },
   { label: "This Week", value: "this-week" },
   { label: "This Month", value: "this-month" },
   { label: "This Year", value: "this-year" },
@@ -135,19 +57,21 @@ export default function Events() {
 
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
-      if (activeTab === "upcoming" && event.dateValue < today) return false;
-      if (activeTab === "past" && event.dateValue >= today) return false;
+      const eventDate = new Date(event.dateValue);
+      eventDate.setHours(0, 0, 0, 0);
+      
+      if (activeTab === "upcoming" && eventDate < today) return false;
+      if (activeTab === "past" && eventDate >= today) return false;
 
-      // Date filter
       if (date) {
-        const eventDate = event.dateValue;
-        const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const startOfWeek = new Date(startOfDay);
-        startOfWeek.setDate(startOfDay.getDate() - startOfDay.getDay());
+        const startOfWeek = new Date(today);
+        startOfWeek.setDate(today.getDate() - today.getDay());
         const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 7);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        
         const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
         const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
         const startOfYear = new Date(today.getFullYear(), 0, 1);
         const endOfYear = new Date(today.getFullYear(), 11, 31);
 
@@ -165,9 +89,12 @@ export default function Events() {
     });
   }, [activeTab, date, city, type, level]);
 
+  const now = new Date();
+  const todayString = now.toISOString().split("T")[0]; 
+
   const allCount = events.length;
-  const upcomingCount = events.filter((e) => e.dateValue >= today).length;
-  const pastCount = events.filter((e) => e.dateValue < today).length;
+  const upcomingCount = events.filter((e) => e.dateValue >= todayString).length;
+  const pastCount = events.filter((e) => e.dateValue < todayString).length;
 
   const tabs = [
     { label: "All", count: allCount, value: "all" },
