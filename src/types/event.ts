@@ -9,7 +9,7 @@ export interface Event {
   image: string;
   eventType: string;
   skillLevel: string;
-  skillLevelDisplay: string;
+  skillLevelDisplay: string | string[];
   categories: string[];
   organizer: string;
   organizerLink: string;

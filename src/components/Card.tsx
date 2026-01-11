@@ -12,7 +12,7 @@ interface CardProps {
   location: string;
   image?: string;
   eventType: string;
-  skillLevel: string;
+  skillLevel: string | string[];
   categories: string[];
 }
 
@@ -29,6 +29,7 @@ export default function Card({
   const [imageError, setImageError] = useState(false);
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
+  const skillLevels = Array.isArray(skillLevel) ? skillLevel : [skillLevel];
 
   return (
     <Link to={`/events/${slug}`} className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
@@ -62,7 +63,9 @@ export default function Card({
           </div>
 
           <div className="flex justify-between border-t border-[#E1E5EA] pt-4">
-            <Pill text={skillLevel} />
+            {skillLevels.map((level) => (
+              <Pill key={level} text={level} />
+            ))}
             <Next text="Details" size="sm" href={`/events/${slug}`} />
           </div>
         </div>
@@ -70,7 +73,9 @@ export default function Card({
         <div className="hidden lg:flex flex-col gap-y-4">
           <div className="flex gap-x-2">
             <Pill variant="primary" text={eventType} />
-            <Pill text={skillLevel} />
+            {skillLevels.map((level) => (
+              <Pill key={level} text={level} />
+            ))}
           </div>
           <Next text="View Details" size="md" href={`/events/${slug}`} />
         </div>

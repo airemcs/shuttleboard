@@ -1,4 +1,3 @@
-// import { useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar"
 import Return from "@/components/Return"
 import Pill from "@/components/Pill"
@@ -24,6 +23,13 @@ export default function Details() {
   const event = events.find((e) => e.slug === slug);
   const [imageError, setImageError] = useState(false);
 
+  useSEO({
+    title: event ? `${event.title} - ${event.location}` : "Event Not Found",
+    description: event 
+      ? `${event.title} on ${event.date} at ${event.location}. ${event.categories.join(", ")}.`
+      : "The event you're looking for could not be found."
+  });
+
   if (!event) {
     return (
       <div className="min-h-screen bg-[#FAFBFC] flex flex-col">
@@ -40,7 +46,7 @@ export default function Details() {
             </p>
           </div>
         </div>
-        <div className="w-full bg-white border-b border-[#E1E5EA]">
+        <div className="w-full bg-white border-t border-[#E1E5EA]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
             <Footer />
           </div>
@@ -49,12 +55,14 @@ export default function Details() {
     );
   }
 
-  useSEO({
-    title: event ? `${event.title} - ${event.location}` : "Event Not Found",
-    description: event 
-      ? `${event.title} on ${event.date} at ${event.location}. ${event.categories.join(", ")}.`
-      : "The event you're looking for could not be found."
-  });
+  // Handle skillLevelDisplay as string or array
+  const skillLevels = Array.isArray(event.skillLevelDisplay) 
+    ? event.skillLevelDisplay 
+    : [event.skillLevelDisplay];
+
+  const skillLevelText = Array.isArray(event.skillLevelDisplay)
+    ? event.skillLevelDisplay.join(", ")
+    : event.skillLevelDisplay;
 
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
@@ -70,20 +78,22 @@ export default function Details() {
 
           {event.image && !imageError ? (
             <img 
-              className="w-full h-48 md:h-80 object-cover object-top shrink-0" 
+              className="w-full h-48 md:h-80 object-cover object-top shrink-0 rounded-xl" 
               src={event.image} 
               alt={event.title}
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
+            <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0 rounded-xl">
               <FiImage className="size-12 text-[#9CA3AF]" />
             </div>
           )}
 
-          <div className="flex gap-2 capitalize">
+          <div className="flex flex-wrap gap-2 capitalize">
             <Pill variant="primary" text={event.eventType} />
-            <Pill text={event.skillLevelDisplay} />
+            {skillLevels.map((level) => (
+              <Pill key={level} text={level} />
+            ))}
           </div>
 
           <span className="font-sf-bold text-2xl lg:text-4xl">{event.title}</span>
@@ -93,7 +103,7 @@ export default function Details() {
             <InfoRow icon={<FaLocationDot className="size-4 text-[#4A5568]" />} label="LOCATION" value={event.location} />
             <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />
-            <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={event.skillLevelDisplay} />
+            <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={skillLevelText} />
             <InfoRow
               icon={<FaBriefcase className="size-4 text-[#4A5568]" />}
               label="ORGANIZER"
@@ -118,10 +128,10 @@ export default function Details() {
       </div>
 
       <div className="w-full bg-[#FAFBFC] border-t border-[#E1E5EA]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-            <Footer />
-          </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+          <Footer />
         </div>
+      </div>
     </div>
   )
 }
