@@ -15,12 +15,13 @@ import eventsData from "@/data/events.json";
 import type { Event } from "@/types/event";
 import { useState } from "react";
 import { FiImage } from "react-icons/fi";
+import useSEO from "@/hooks/useSEO";
 
 const events: Event[] = eventsData;
 
 export default function Details() {
   const { id } = useParams();
-  const event = events.find((e) => e.id === Number(id));
+  const event = eventsData.find((e) => e.id === Number(id));
   const [imageError, setImageError] = useState(false);
 
   if (!event) {
@@ -30,6 +31,13 @@ export default function Details() {
       </div>
     );
   }
+
+  useSEO({
+    title: event ? `${event.title} - ${event.location}` : "Event Not Found",
+    description: event 
+      ? `${event.title} on ${event.date} at ${event.location}. ${event.categories.join(", ")}.`
+      : "The event you're looking for could not be found."
+  });
 
   return (
     <div className="min-h-screen bg-[#FAFBFC]">

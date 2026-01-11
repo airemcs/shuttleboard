@@ -8,6 +8,7 @@ import CheckboxGroup from "@/components/CheckboxGroup";
 import TextArea from "@/components/TextArea";
 import Button from "@/components/Button";
 import { FiCheckCircle } from "react-icons/fi";
+import useSEO from "@/hooks/useSEO";
 
 const categoryOptions = [
   { value: "mens-doubles", label: "Men's Doubles" },
@@ -24,6 +25,11 @@ const eventTypeOptions = [
 ];
 
 export default function Submission() {
+  useSEO({
+    title: "Submit Event",
+    description: "Add your badminton tournament, league, or open play session to Shuttleboard."
+  });
+
   const [eventType, setEventType] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [description, setDescription] = useState("");

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { FiX } from "react-icons/fi";
 import eventsData from "@/data/events.json";
 import type { Event } from "@/types/event";
+import useSEO from "@/hooks/useSEO";
 
 const events: Event[] = eventsData;
 
@@ -39,6 +40,11 @@ const levelOptions = [
 ];
 
 export default function Events() {
+  useSEO({
+    title: "PH Badminton Tournaments & Events",
+    description: "Browse all badminton tournaments, leagues, and open play sessions in the Philippines."
+  });
+
   const [activeTab, setActiveTab] = useState("all");
   const [date, setDate] = useState("");
   const [city, setCity] = useState("");

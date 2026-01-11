@@ -3,6 +3,7 @@ import Banner from "@/components/Banner"
 import Card from "@/components/Card"
 import Next from "@/components/Next"
 import Footer from "@/components/Footer"
+import useSEO from "@/hooks/useSEO";
 
 const events = [
   {
@@ -74,6 +75,11 @@ const events = [
 ];
 
 export default function Home() {
+  useSEO({
+    title: "Shuttleboard",
+    description: "Discover badminton tournaments, leagues, and open play sessions across the Philippines."
+  });
+
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
