@@ -20,48 +20,21 @@ const baseStyles = `
   cursor-pointer
   flex
   justify-center
+  disabled:opacity-50
+  disabled:cursor-not-allowed
 `;
 
 const sizeStyles: Record<ButtonSize, string> = {
-  md: `
-    px-4 py-3
-    text-base
-  `,
-  lg: `
-    w-full
-    px-5 py-3
-    text-base
-  `,
-  xl: `
-    w-full
-    px-6 py-4
-    text-md
-  `,
+  md: `px-4 py-3 text-base`,
+  lg: `w-full px-5 py-3 text-base`,
+  xl: `w-full px-6 py-4 text-md`,
 };
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: `
-    bg-primary-green
-    text-white
-    hover:bg-primary-green-hover
-  `,
-  secondary: `
-    hover:bg-surface-hover
-    text-foreground
-  `,
-  ghost: `
-    bg-surface-hover
-    hover:bg-background-alt
-    text-foreground
-  `,
-  neutral: `
-    bg-surface
-    text-primary-green
-    font-regular
-    border-1
-    border-[#E1E5EA]
-    hover:bg-surface-hover
-  `
+  primary: `bg-primary-green text-white hover:bg-primary-green-hover disabled:hover:bg-primary-green`,
+  secondary: `hover:bg-surface-hover text-foreground`,
+  ghost: `bg-surface-hover hover:bg-background-alt text-foreground`,
+  neutral: `bg-surface text-primary-green font-semibold border-1 border-[#E1E5EA] hover:bg-surface-hover`,
 };
 
 export default function Button({ 
@@ -72,16 +45,24 @@ export default function Button({
   iconPosition = "left",
   className = "", 
   children, 
+  type = "button",
+  disabled,
   ...props 
 }: ButtonProps) {
   const content = text ?? children;
 
   return (
-    <button className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`} {...props}>
+    <button
+      type={type}
+      disabled={disabled}
+      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
+      {...props}
+    >
       <span className={`inline-flex items-center gap-2 ${iconPosition === "right" ? "flex-row-reverse" : ""}`}>
         {icon}
         {content}
       </span>
     </button>
   );
+
 }
