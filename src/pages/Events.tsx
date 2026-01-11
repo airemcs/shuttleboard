@@ -176,11 +176,12 @@ export default function Events() {
                 <Card
                   key={event.id}
                   id={event.id}
+                  slug={event.slug}
                   title={event.title}
                   date={event.date}
                   location={event.location}
                   image={event.image}
-                  eventType={event.eventType === "open-play" ? "Open Play" : event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
+                  eventType={event.eventType}
                   skillLevel={event.skillLevelDisplay}
                   categories={event.categories}
                 />

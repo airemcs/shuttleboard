@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "slug": "manila-open-badminton-tournament-2026",
     "title": "Manila Open Badminton Tournament 2026",
     "date": "March 12 - 14, 2026",
     "dateValue": "2026-03-12",
@@ -27,6 +28,7 @@
   },
   {
     "id": 2,
+    "slug": "cebu-city-badminton-league",
     "title": "Cebu City Badminton League",
     "date": "Every Saturday, 2026",
     "dateValue": "2026-06-01",
@@ -48,6 +50,7 @@
   },
   {
     "id": 3,
+    "slug": "davao-open-play-session",
     "title": "Davao Open Play Session",
     "date": "January 20, 2026",
     "dateValue": "2026-01-20",
@@ -65,69 +68,6 @@
       "🏸 DAVAO OPEN PLAY 🏸",
       "Casual play session for beginners and intermediate players.",
       "Come meet fellow badminton enthusiasts!"
-    ]
-  },
-  {
-    "id": 4,
-    "title": "Quezon City Junior Tournament",
-    "date": "February 8 - 9, 2026",
-    "dateValue": "2026-02-08",
-    "location": "QC Sports Arena, Quezon City",
-    "city": "quezon-city",
-    "image": "/shuttleforce.jpg",
-    "eventType": "tournament",
-    "skillLevel": "beginner",
-    "skillLevelDisplay": "Junior",
-    "categories": ["Boys Singles", "Girls Singles", "Boys Doubles", "Girls Doubles"],
-    "organizer": "QC Badminton Association",
-    "organizerLink": "https://facebook.com/qcbadminton",
-    "registrationLink": "https://forms.google.com/example",
-    "description": [
-      "🏸 QC JUNIOR TOURNAMENT 2026 🏸",
-      "A tournament for young aspiring badminton players!",
-      "Open to all junior players in the metro."
-    ]
-  },
-  {
-    "id": 5,
-    "title": "Makati Corporate Badminton Cup",
-    "date": "June 29, 2026",
-    "dateValue": "2026-06-29",
-    "location": "Makati Coliseum, Makati",
-    "city": "makati",
-    "image": "",
-    "eventType": "tournament",
-    "skillLevel": "all",
-    "skillLevelDisplay": "All Levels",
-    "categories": ["Men's Doubles", "Women's Doubles", "Mixed Doubles"],
-    "organizer": "Makati Corporate Sports",
-    "organizerLink": "https://facebook.com/makatisports",
-    "registrationLink": "https://forms.google.com/example",
-    "description": [
-      "🏸 MAKATI CORPORATE CUP 🏸",
-      "Battle of the corporations!",
-      "Gather your office teammates and compete."
-    ]
-  },
-  {
-    "id": 6,
-    "title": "Shuttle Force Smash Cup 2026",
-    "date": "July 15 - 17, 2026",
-    "dateValue": "2026-07-15",
-    "location": "SM Mall of Asia Arena, Pasay",
-    "city": "pasay",
-    "image": "",
-    "eventType": "Tournament",
-    "skillLevel": "Advanced",
-    "skillLevelDisplay": "Advanced",
-    "categories": ["Men's Singles", "Women's Singles", "Men's Doubles", "Women's Doubles", "Mixed Doubles"],
-    "organizer": "Shuttle Force PH",
-    "organizerLink": "https://facebook.com/shuttleforceph",
-    "registrationLink": "https://forms.google.com/example",
-    "description": [
-      "🏸 SHUTTLE FORCE SMASH CUP 2026 🏸",
-      "The ultimate badminton showdown!",
-      "For advanced players only."
     ]
   }
 ]

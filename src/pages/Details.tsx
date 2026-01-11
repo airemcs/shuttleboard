@@ -20,14 +20,31 @@ import useSEO from "@/hooks/useSEO";
 const events: Event[] = eventsData;
 
 export default function Details() {
-  const { id } = useParams();
-  const event = eventsData.find((e) => e.id === Number(id));
+  const { slug } = useParams();
+  const event = events.find((e) => e.slug === slug);
   const [imageError, setImageError] = useState(false);
 
   if (!event) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
-        <span className="font-sf-medium text-lg text-[#6B7280]">Event not found</span>
+      <div className="min-h-screen bg-[#FAFBFC] flex flex-col">
+        <div className="w-full bg-white border-b border-[#E1E5EA]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+            <Navbar />
+          </div>
+        </div>
+        <div className="grow flex items-center justify-center">
+          <div className="text-center">
+            <span className="font-sf-bold text-2xl text-primary-black">Event Not Found</span>
+            <p className="font-sf-regular text-secondary-black mt-2">
+              The event you're looking for doesn't exist or has been removed.
+            </p>
+          </div>
+        </div>
+        <div className="w-full bg-white border-b border-[#E1E5EA]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+            <Footer />
+          </div>
+        </div>
       </div>
     );
   }
@@ -53,13 +70,13 @@ export default function Details() {
 
           {event.image && !imageError ? (
             <img 
-              className="w-full h-48 lg:h-80 object-cover object-top flex-shrink-0" 
+              className="w-full h-48 md:h-80 object-cover object-top shrink-0" 
               src={event.image} 
               alt={event.title}
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 flex-shrink-0">
+            <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
               <FiImage className="size-12 text-[#9CA3AF]" />
             </div>
           )}

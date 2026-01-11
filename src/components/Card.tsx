@@ -6,6 +6,7 @@ import { FiImage } from "react-icons/fi";
 
 interface CardProps {
   id: number;
+  slug: string;
   title: string;
   date: string;
   location: string;
@@ -16,7 +17,7 @@ interface CardProps {
 }
 
 export default function Card({
-  id,
+  slug,
   title,
   date,
   location,
@@ -30,16 +31,16 @@ export default function Card({
   const remainingCount = categories.length - 3;
 
   return (
-    <Link to={`/events/${id}`} className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
+    <Link to={`/events/${slug}`} className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
       {image && !imageError ? (
         <img 
-          className="w-full h-48 lg:h-56 object-cover object-top flex-shrink-0" 
+          className="w-full h-48 lg:h-56 object-cover object-top shrink-0" 
           src={image} 
           alt={title}
           onError={() => setImageError(true)}
         />
       ) : (
-        <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 flex-shrink-0">
+        <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
           <FiImage className="size-12 text-[#9CA3AF]" />
         </div>
       )}
@@ -62,7 +63,7 @@ export default function Card({
 
           <div className="flex justify-between border-t border-[#E1E5EA] pt-4">
             <Pill text={skillLevel} />
-            <Next text="Details" size="sm" href={`/events/${id}`} />
+            <Next text="Details" size="sm" href={`/events/${slug}`} />
           </div>
         </div>
 
@@ -71,7 +72,7 @@ export default function Card({
             <Pill variant="primary" text={eventType} />
             <Pill text={skillLevel} />
           </div>
-          <Next text="View Details" size="md" href={`/events/${id}`} />
+          <Next text="View Details" size="md" href={`/events/${slug}`} />
         </div>
       </div>
     </Link>
