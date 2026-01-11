@@ -13,12 +13,15 @@ import AboutSection from "@/components/AboutSection";
 import { useParams } from "react-router-dom";
 import eventsData from "@/data/events.json";
 import type { Event } from "@/types/event";
+import { useState } from "react";
+import { FiImage } from "react-icons/fi";
 
 const events: Event[] = eventsData;
 
 export default function Details() {
   const { id } = useParams();
   const event = events.find((e) => e.id === Number(id));
+  const [imageError, setImageError] = useState(false);
 
   if (!event) {
     return (
@@ -40,7 +43,18 @@ export default function Details() {
         <div className="flex flex-col gap-y-4 lg:gap-y-6 py-8">
           <Return text="Back to Events" href="/events" size="sm" />
 
-          <img className="w-full h-48 lg:h-80 object-cover object-top rounded-xl" src={event.image || "/placeholder.jpg"} />
+          {event.image && !imageError ? (
+            <img 
+              className="w-full h-48 lg:h-80 object-cover object-top flex-shrink-0" 
+              src={event.image} 
+              alt={event.title}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 flex-shrink-0">
+              <FiImage className="size-12 text-[#9CA3AF]" />
+            </div>
+          )}
 
           <div className="flex gap-2 capitalize">
             <Pill variant="primary" text={event.eventType} />
