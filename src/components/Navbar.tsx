@@ -10,8 +10,16 @@ export default function Navbar() {
   const currentPath = location.pathname;
 
   const getVariant = (path: string) => {
+    if (currentPath.startsWith("/events/") && currentPath !== "/events") {
+      return "secondary";
+    }
+    if (currentPath === "/submit") {
+      return "secondary";
+    }
+
     if (path === "/" && currentPath === "/") return "ghost";
-    if (path !== "/" && currentPath.startsWith(path)) return "ghost";
+    if (path === "/events" && currentPath === "/events") return "ghost";
+    
     return "secondary";
   };
 

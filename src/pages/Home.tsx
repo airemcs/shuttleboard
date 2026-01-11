@@ -95,8 +95,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 py-4 pb-8 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <div className="flex md:hidden flex-row pt-4 justify-between">
+      <div className="grid grid-cols-1 py-4 pb-4 md:pb-8 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="flex md:hidden flex-row justify-between">
           <span className="font-sf-bold text-sm text-tertiary-black">UPCOMING EVENTS</span>
           <Next text="View All" size="sm" href="/events" />
         </div>
