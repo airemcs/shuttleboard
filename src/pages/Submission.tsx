@@ -45,7 +45,6 @@ export default function Submission() {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    // Add select and checkbox values manually since they're custom components
     formData.set("eventType", eventType);
     formData.set("categories", categories.join(", "));
     formData.set("description", description);
@@ -79,24 +78,28 @@ export default function Submission() {
   // Success state
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC]">
-        <div className="w-full bg-white border-b border-[#E1E5EA]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-            <Navbar />
-          </div>
+    <div className="min-h-screen bg-[#FAFBFC] flex flex-col">
+      {/* Navbar */}
+      <div className="w-full bg-white border-b border-[#E1E5EA]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+          <Navbar />
         </div>
+      </div>
 
-        <div className="mx-auto max-w-7xl md:max-w-2xl px-4 sm:px-6 md:px-8 flex flex-col items-center justify-center gap-y-6 py-20">
+      {/* Content - grows to fill remaining space */}
+      <div className="grow flex items-center justify-center px-4 sm:px-6 md:px-8">
+        <div className="flex flex-col items-center gap-y-6 max-w-md w-full">
           <div className="size-20 bg-primary-green-light rounded-full flex items-center justify-center">
             <FiCheckCircle className="size-10 text-primary-green" />
           </div>
+          
           <span className="font-sf-bold text-2xl md:text-3xl text-primary-black text-center">
             Event Submitted!
           </span>
-          <span className="font-sf-regular text-secondary-black text-center max-w-md">
+          <span className="font-sf-regular text-secondary-black text-center">
             Thank you for your submission. We'll review it and add it to the directory within 24-48 hours.
           </span>
-          <div className="flex flex-col sm:flex-row gap-3 mt-4">
+          <div className="flex flex-col gap-3 w-full">
             <Link to="/events">
               <Button variant="primary" size="lg" text="Browse Events" />
             </Link>
@@ -108,13 +111,15 @@ export default function Submission() {
             />
           </div>
         </div>
+      </div>
 
-        <div className="w-full bg-[#FAFBFC] border-t border-[#E1E5EA]">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-            <Footer />
-          </div>
+      {/* Footer */}
+      <div className="w-full bg-[#FAFBFC] border-t border-[#E1E5EA]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
+          <Footer />
         </div>
       </div>
+    </div>
     );
   }
 
