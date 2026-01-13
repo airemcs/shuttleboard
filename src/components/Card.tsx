@@ -11,6 +11,7 @@ interface CardProps {
   title: string;
   date: string;
   location: string;
+  city: string;
   image?: string;
   eventType: string;
   skillLevel: string | string[];
@@ -23,6 +24,7 @@ export default function Card({
   title,
   date,
   location,
+  city,
   image,
   eventType,
   skillLevel,
@@ -33,6 +35,9 @@ export default function Card({
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
   const skillLevels = Array.isArray(skillLevel) ? skillLevel : [skillLevel];
+  
+  // Extract province/region from city (e.g., "Bacoor, Cavite" → "Cavite")
+  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
   
   // Get registration status
   const registrationInfo = getRegistrationInfo(registrationDeadline);
@@ -71,8 +76,8 @@ export default function Card({
           </div>
         )}
         {registrationInfo.status === "closed" && (
-          <div className="absolute top-3 right-3">
-            <span className="bg-red-800 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
+          <div className="absolute top-3 left-3">
+            <span className="bg-[#4A5568] text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
               Registration Closed
             </span>
           </div>
@@ -83,7 +88,7 @@ export default function Card({
         <div className="flex flex-col">
           <span className="font-sf-bold text-primary-black truncate text-base lg:text-xl">{title}</span>
           <span className="font-sf-regular text-sm lg:text-base text-secondary-black">{date}</span>
-          <span className="font-sf-regular text-sm lg:text-base text-secondary-black">{location}</span>
+          <span className="font-sf-regular text-sm lg:text-base text-secondary-black">{location}, {province}</span>
         </div>
 
         <div className="flex flex-col gap-y-4 lg:hidden">

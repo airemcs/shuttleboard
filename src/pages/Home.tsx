@@ -63,6 +63,7 @@ export default function Home() {
             title={event.title}
             date={event.date}
             location={event.location}
+            city={event.city}
             image={event.image}
             eventType={event.eventType === "open-play" ? "Open Play" : event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
             skillLevel={event.skillLevelDisplay}

@@ -180,6 +180,7 @@ export default function Events() {
                   title={event.title}
                   date={event.date}
                   location={event.location}
+                  city={event.city}
                   image={event.image}
                   eventType={event.eventType}
                   skillLevel={event.skillLevelDisplay}
