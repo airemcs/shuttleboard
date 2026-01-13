@@ -184,6 +184,7 @@ export default function Events() {
                   eventType={event.eventType}
                   skillLevel={event.skillLevelDisplay}
                   categories={event.categories}
+                  registrationDeadline={event.registrationDeadline}
                 />
               ))}
             </div>

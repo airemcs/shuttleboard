@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar"
 import Return from "@/components/Return"
 import Pill from "@/components/Pill"
-import { FaCalendar, FaLayerGroup, FaStar, FaBriefcase } from "react-icons/fa";
+import { FaCalendar, FaLayerGroup, FaStar, FaBriefcase, FaClock } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
@@ -15,6 +15,7 @@ import type { Event } from "@/types/event";
 import { useState } from "react";
 import { FiImage } from "react-icons/fi";
 import useSEO from "@/hooks/useSEO";
+import { getRegistrationInfo, getDaysLeftLabel } from "@/utils/registration";
 
 const events: Event[] = eventsData;
 
@@ -64,6 +65,41 @@ export default function Details() {
     ? event.skillLevelDisplay.join(", ")
     : event.skillLevelDisplay;
 
+  // Get registration status
+  const registrationInfo = getRegistrationInfo(event.registrationDeadline);
+  const isRegistrationClosed = registrationInfo.status === "closed";
+
+  // Build the registration deadline display value
+  const getDeadlineDisplayValue = () => {
+    if (!event.registrationDeadline) return null;
+    
+    const { status, daysLeft, formattedDeadline } = registrationInfo;
+    
+    if (status === "closed") {
+      return (
+        <span className="text-red-600">
+          Closed ({formattedDeadline})
+        </span>
+      );
+    }
+    
+    if (status === "closing-soon") {
+      return (
+        <span className="text-amber-600">
+          {formattedDeadline} • {getDaysLeftLabel(daysLeft)}
+        </span>
+      );
+    }
+    
+    return (
+      <span>
+        {formattedDeadline} • {getDaysLeftLabel(daysLeft)}
+      </span>
+    );
+  };
+
+  const deadlineDisplay = getDeadlineDisplayValue();
+
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
@@ -94,6 +130,12 @@ export default function Details() {
             {skillLevels.map((level) => (
               <Pill key={level} text={level} />
             ))}
+            {registrationInfo.status === "closing-soon" && (
+              <Pill variant="warning" text="Closing Soon" />
+            )}
+            {registrationInfo.status === "closed" && (
+              <Pill variant="error" text="Registration Closed" />
+            )}
           </div>
 
           <span className="font-sf-bold text-2xl lg:text-4xl">{event.title}</span>
@@ -104,6 +146,13 @@ export default function Details() {
             <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />
             <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={skillLevelText} />
+            {deadlineDisplay && (
+              <InfoRow 
+                icon={<FaClock className="size-4 text-[#4A5568]" />} 
+                label="REGISTRATION DEADLINE" 
+                value={deadlineDisplay} 
+              />
+            )}
             <InfoRow
               icon={<FaBriefcase className="size-4 text-[#4A5568]" />}
               label="ORGANIZER"
@@ -119,9 +168,20 @@ export default function Details() {
           <AboutSection content={event.description} />
 
           <div className="flex flex-col items-center gap-y-4">
-            <a className="w-full" href={event.registrationLink} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" size="xl" text="Register for Event" icon={<MdArrowOutward />} iconPosition="right" />
-            </a>
+            {isRegistrationClosed ? (
+              <div className="w-full">
+                <Button 
+                  variant="disabled" 
+                  size="xl" 
+                  text="Registration Closed" 
+                  disabled
+                />
+              </div>
+            ) : (
+              <a className="w-full" href={event.registrationLink} target="_blank" rel="noopener noreferrer">
+                <Button variant="primary" size="xl" text="Register for Event" icon={<MdArrowOutward />} iconPosition="right" />
+              </a>
+            )}
             <span className="font-sf-regular text-tertiary-black text-sm lg:text-base">Source: Organizer's Facebook Page</span>
           </div>
         </div> 

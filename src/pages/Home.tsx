@@ -67,6 +67,7 @@ export default function Home() {
             eventType={event.eventType === "open-play" ? "Open Play" : event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1)}
             skillLevel={event.skillLevelDisplay}
             categories={event.categories}
+            registrationDeadline={event.registrationDeadline}
           />
         ))}
       </div>

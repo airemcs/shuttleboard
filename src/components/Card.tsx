@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Pill from "@/components/Pill";
 import Next from "@/components/Next";
 import { FiImage } from "react-icons/fi";
+import { getRegistrationInfo } from "@/utils/registration";
 
 interface CardProps {
   id: number;
@@ -14,6 +15,7 @@ interface CardProps {
   eventType: string;
   skillLevel: string | string[];
   categories: string[];
+  registrationDeadline?: string;
 }
 
 export default function Card({
@@ -25,26 +27,57 @@ export default function Card({
   eventType,
   skillLevel,
   categories,
+  registrationDeadline,
 }: CardProps) {
   const [imageError, setImageError] = useState(false);
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
   const skillLevels = Array.isArray(skillLevel) ? skillLevel : [skillLevel];
+  
+  // Get registration status
+  const registrationInfo = getRegistrationInfo(registrationDeadline);
 
   return (
     <Link to={`/events/${slug}`} className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
-      {image && !imageError ? (
-        <img 
-          className="w-full h-48 lg:h-56 object-cover object-top shrink-0" 
-          src={image} 
-          alt={title}
-          onError={() => setImageError(true)}
-        />
-      ) : (
-        <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
-          <FiImage className="size-12 text-[#9CA3AF]" />
-        </div>
-      )}
+      <div className="relative">
+        {image && !imageError ? (
+          <img 
+            className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 ${
+              registrationInfo.status === "closed" ? "grayscale-0" : ""
+            }`}
+            src={image} 
+            alt={title}
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
+            <FiImage className="size-12 text-[#9CA3AF]" />
+          </div>
+        )}
+        
+        {/* Dim overlay for closed registration */}
+        {registrationInfo.status === "closed" && (
+          <div className="absolute inset-0 bg-black/30" />
+        )}
+
+        {/* Registration status badges */}
+        {registrationInfo.status === "closing-soon" && (
+          <div className="absolute top-3 right-3">
+            <span className="bg-amber-500 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
+              {registrationInfo.daysLeft === 0 
+                ? "Last day!" 
+                : `${registrationInfo.daysLeft} day${registrationInfo.daysLeft === 1 ? "" : "s"} left`}
+            </span>
+          </div>
+        )}
+        {registrationInfo.status === "closed" && (
+          <div className="absolute top-3 right-3">
+            <span className="bg-red-800 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
+              Registration Closed
+            </span>
+          </div>
+        )}
+      </div>
       
       <div className="flex flex-col p-5 gap-y-4">
         <div className="flex flex-col">

@@ -14,5 +14,6 @@ export interface Event {
   organizer: string;
   organizerLink: string;
   registrationLink: string;
+  registrationDeadline?: string;
   description: string[];
 }

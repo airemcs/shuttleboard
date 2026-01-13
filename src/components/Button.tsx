@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonSize = "md" | "lg" | "xl";
-type ButtonVariant = "primary" | "secondary" | "ghost" | "neutral";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "neutral" | "disabled";
 type IconPosition = "left" | "right";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -35,6 +35,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary: `hover:bg-surface-hover text-foreground`,
   ghost: `bg-surface-hover hover:bg-background-alt text-foreground`,
   neutral: `bg-surface text-primary-green font-semibold border-1 border-[#E1E5EA] hover:bg-surface-hover`,
+  disabled: `bg-[#E1E5EA] text-[#9CA3AF] cursor-not-allowed hover:bg-[#E1E5EA]`,
 };
 
 export default function Button({ 
@@ -50,11 +51,12 @@ export default function Button({
   ...props 
 }: ButtonProps) {
   const content = text ?? children;
+  const isDisabledVariant = variant === "disabled";
 
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled || isDisabledVariant}
       className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
       {...props}
     >

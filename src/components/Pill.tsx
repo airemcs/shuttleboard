@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
-type PillVariant = "default" | "primary";
+type PillVariant = "default" | "primary" | "warning" | "error";
 
 interface PillProps extends HTMLAttributes<HTMLDivElement> {
   variant?: PillVariant;
@@ -31,6 +31,14 @@ const variantStyles: Record<PillVariant, string> = {
   primary: `
     bg-primary-green-light
     text-primary-green
+  `,
+  warning: `
+    bg-amber-100
+    text-amber-700
+  `,
+  error: `
+    bg-red-100
+    text-red-700
   `,
 };
 
