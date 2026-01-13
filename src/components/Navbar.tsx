@@ -33,9 +33,10 @@ export default function Navbar() {
     <div className="w-full">
       <div className="flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="bg-primary-green size-10 md:size-12 rounded-lg">
+          {/* <div className="bg-primary-green size-10 md:size-12 rounded-lg">
             <GiShuttlecock className="w-full h-full p-2 rotate-45 text-white" />
-          </div>
+          </div> */}
+          <img src="./icon.png" className="size-10 md:size-12" alt="" />
           <span className="font-sf-bold text-lg md:text-2xl">Shuttleboard PH</span>
         </Link>
 

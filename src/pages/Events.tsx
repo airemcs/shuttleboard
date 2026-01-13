@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import { useState, useMemo } from "react";
 import Tabs from "@/components/Tab";
 import Chip from "@/components/Chip";
+import MultiSelectChip from "@/components/MultiselectChip";
 import Card from "@/components/Card";
 import Footer from "@/components/Footer";
 import { FiX } from "react-icons/fi";
@@ -12,32 +13,43 @@ import useSEO from "@/hooks/useSEO";
 const events: Event[] = eventsData;
 
 const dateOptions = [
-  { label: "This Week", value: "this-week" },
   { label: "This Month", value: "this-month" },
+  { label: "In 3 Months", value: "3-months" },
+  { label: "In 6 Months", value: "6-months" },
   { label: "This Year", value: "this-year" },
 ];
 
-const cityOptions = [
-  { label: "Manila", value: "manila" },
-  { label: "Cebu", value: "cebu" },
-  { label: "Davao", value: "davao" },
-  { label: "Quezon City", value: "quezon-city" },
-  { label: "Makati", value: "makati" },
-  { label: "Pasay", value: "pasay" },
-];
+// Extract unique cities from events data
+const uniqueCities = [...new Set(events.map((e) => e.city))].sort();
+const cityOptions = uniqueCities.map((city) => {
+  // Extract province/region for the label (e.g., "Bacoor, Cavite" → "Cavite")
+  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
+  return { label: province || city, value: city };
+});
 
 const typeOptions = [
-  { label: "Tournament", value: "tournament" },
-  { label: "League", value: "league" },
-  { label: "Open Play", value: "open-play" },
+  { label: "Tournament", value: "Tournament" },
+  { label: "League", value: "League" },
+  { label: "Open Play", value: "Open Play" },
 ];
 
 const levelOptions = [
-  { label: "Beginner", value: "beginner" },
-  { label: "Intermediate", value: "intermediate" },
-  { label: "Advanced", value: "advanced" },
-  { label: "All Levels", value: "all" },
+  { label: "Open", value: "Open" },
+  { label: "A", value: "A" },
+  { label: "B", value: "B" },
+  { label: "C", value: "C" },
+  { label: "D", value: "D" },
+  { label: "E", value: "E" },
+  { label: "F", value: "F" },
+  { label: "G", value: "G" },
 ];
+
+// Extract unique categories from events data
+const uniqueCategories = [...new Set(events.flatMap((e) => e.categories))].sort();
+const categoryOptions = uniqueCategories.map((category) => ({
+  label: category,
+  value: category,
+}));
 
 export default function Events() {
   useSEO({
@@ -49,16 +61,20 @@ export default function Events() {
   const [date, setDate] = useState("");
   const [city, setCity] = useState("");
   const [type, setType] = useState("");
-  const [level, setLevel] = useState("");
+  const [levels, setLevels] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   const today = new Date();
-  const hasActiveFilters = date || city || type || level;
+  today.setHours(0, 0, 0, 0);
+  
+  const hasActiveFilters = date || city || type || levels.length > 0 || categories.length > 0;
 
   const clearAllFilters = () => {
     setDate("");
     setCity("");
     setType("");
-    setLevel("");
+    setLevels([]);
+    setCategories([]);
   };
 
   const filteredEvents = useMemo(() => {
@@ -70,30 +86,51 @@ export default function Events() {
       if (activeTab === "past" && eventDate >= today) return false;
 
       if (date) {
-        const startOfWeek = new Date(today);
-        startOfWeek.setDate(today.getDate() - today.getDay());
-        const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        const endDate = new Date(today);
         
-        const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        
-        const startOfYear = new Date(today.getFullYear(), 0, 1);
-        const endOfYear = new Date(today.getFullYear(), 11, 31);
+        if (date === "this-month") {
+          endDate.setMonth(today.getMonth() + 1, 0); // End of current month
+        } else if (date === "3-months") {
+          endDate.setMonth(today.getMonth() + 3);
+        } else if (date === "6-months") {
+          endDate.setMonth(today.getMonth() + 6);
+        } else if (date === "this-year") {
+          endDate.setFullYear(today.getFullYear(), 11, 31);
+        }
 
-        if (date === "today" && eventDate.toDateString() !== today.toDateString()) return false;
-        if (date === "this-week" && (eventDate < startOfWeek || eventDate > endOfWeek)) return false;
-        if (date === "this-month" && (eventDate < startOfMonth || eventDate > endOfMonth)) return false;
-        if (date === "this-year" && (eventDate < startOfYear || eventDate > endOfYear)) return false;
+        if (eventDate < today || eventDate > endDate) return false;
       }
 
       if (city && event.city !== city) return false;
       if (type && event.eventType !== type) return false;
-      if (level && event.skillLevel !== level) return false;
+      
+      // Filter by levels - check if any selected level matches the event's skillLevelDisplay
+      if (levels.length > 0) {
+        const eventLevels = Array.isArray(event.skillLevelDisplay) 
+          ? event.skillLevelDisplay 
+          : [event.skillLevelDisplay];
+        
+        // Check if any selected level is found in the event's levels
+        const hasMatchingLevel = levels.some((selectedLevel) =>
+          eventLevels.some((eventLevel) => 
+            eventLevel.toLowerCase().includes(selectedLevel.toLowerCase()) ||
+            eventLevel.includes(`Level ${selectedLevel}`)
+          )
+        );
+        if (!hasMatchingLevel) return false;
+      }
+
+      // Filter by categories - check if any selected category matches
+      if (categories.length > 0) {
+        const hasMatchingCategory = categories.some((selectedCategory) =>
+          event.categories.includes(selectedCategory)
+        );
+        if (!hasMatchingCategory) return false;
+      }
 
       return true;
     });
-  }, [activeTab, date, city, type, level]);
+  }, [activeTab, date, city, type, levels, categories]);
 
   const now = new Date();
   const todayString = now.toISOString().split("T")[0]; 
@@ -109,14 +146,14 @@ export default function Events() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
+    <div className="min-h-screen bg-[#FAFBFC] flex flex-col">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
           <Navbar />
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8 flex flex-col gap-y-5 py-6 md:py-8">
+      <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 md:px-8 flex flex-col gap-y-5 py-6 md:py-8 grow">
         <span className="font-sf-bold text-2xl md:text-4xl text-primary-black">All Badminton Events</span>
 
         <div className="flex md:hidden flex-col gap-y-5">
@@ -124,9 +161,10 @@ export default function Events() {
 
           <div className="flex flex-wrap gap-2">
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
-            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
-            <Chip label="Level" options={levelOptions} value={level} onChange={setLevel} />
+            {/* <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
+            <Chip label="Type" options={typeOptions} value={type} onChange={setType} /> */}
+            <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
+            <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
             {hasActiveFilters && (
               <button
@@ -143,9 +181,10 @@ export default function Events() {
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
-            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
-            <Chip label="Level" options={levelOptions} value={level} onChange={setLevel} />
+            {/* <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
+            <Chip label="Type" options={typeOptions} value={type} onChange={setType} /> */}
+            <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
+            <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
             {hasActiveFilters && (
               <button

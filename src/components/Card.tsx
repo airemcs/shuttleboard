@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Pill from "@/components/Pill";
 import Next from "@/components/Next";
 import { FiImage } from "react-icons/fi";
@@ -43,12 +42,12 @@ export default function Card({
   const registrationInfo = getRegistrationInfo(registrationDeadline);
 
   return (
-    <Link to={`/events/${slug}`} className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
+    <div className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
       <div className="relative">
         {image && !imageError ? (
           <img 
             className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 ${
-              registrationInfo.status === "closed" ? "grayscale-0" : ""
+              registrationInfo.status === "closed" ? "grayscale-[50%]" : ""
             }`}
             src={image} 
             alt={title}
@@ -76,8 +75,8 @@ export default function Card({
           </div>
         )}
         {registrationInfo.status === "closed" && (
-          <div className="absolute top-3 left-3">
-            <span className="bg-[#4A5568] text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
+          <div className="absolute top-3 right-3">
+            <span className="bg-red-800 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
               Registration Closed
             </span>
           </div>
@@ -101,9 +100,7 @@ export default function Card({
           </div>
 
           <div className="flex justify-between border-t border-[#E1E5EA] pt-4">
-            {skillLevels.map((level) => (
-              <Pill key={level} text={level} />
-            ))}
+            <Pill text={skillLevels[0]} />
             <Next text="Details" size="sm" href={`/events/${slug}`} />
           </div>
         </div>
@@ -111,13 +108,12 @@ export default function Card({
         <div className="hidden lg:flex flex-col gap-y-4">
           <div className="flex gap-x-2">
             <Pill variant="primary" text={eventType} />
-            {skillLevels.map((level) => (
-              <Pill key={level} text={level} />
-            ))}
+            <Pill text={skillLevels[0]} />
+            {skillLevels.length > 1 && <Pill text={`+${skillLevels.length - 1}`} />}
           </div>
           <Next text="View Details" size="md" href={`/events/${slug}`} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
