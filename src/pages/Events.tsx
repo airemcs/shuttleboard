@@ -4,6 +4,8 @@ import Tabs from "@/components/Tab";
 import Chip from "@/components/Chip";
 import MultiSelectChip from "@/components/MultiselectChip";
 import Card from "@/components/Card";
+import EventTable from "@/components/EventTable";
+import ViewToggle from "@/components/ViewToggle";
 import Footer from "@/components/Footer";
 import { FiX } from "react-icons/fi";
 import eventsData from "@/data/events.json";
@@ -51,6 +53,8 @@ const categoryOptions = uniqueCategories.map((category) => ({
   value: category,
 }));
 
+type ViewMode = "card" | "table";
+
 export default function Events() {
   useSEO({
     title: "PH Badminton Tournaments & Events",
@@ -63,10 +67,8 @@ export default function Events() {
   const [type, setType] = useState("");
   const [levels, setLevels] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<ViewMode>("card");
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
   const hasActiveFilters = date || city || type || levels.length > 0 || categories.length > 0;
 
   const clearAllFilters = () => {
@@ -78,9 +80,18 @@ export default function Events() {
   };
 
   const filteredEvents = useMemo(() => {
-    return events.filter((event) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const filtered = events.filter((event) => {
       const eventDate = new Date(event.dateValue);
       eventDate.setHours(0, 0, 0, 0);
+      
+      // In table view, only show events from the current year
+      if (viewMode === "table") {
+        const currentYear = today.getFullYear();
+        if (eventDate.getFullYear() !== currentYear) return false;
+      }
       
       if (activeTab === "upcoming" && eventDate < today) return false;
       if (activeTab === "past" && eventDate >= today) return false;
@@ -130,7 +141,12 @@ export default function Events() {
 
       return true;
     });
-  }, [activeTab, date, city, type, levels, categories]);
+    
+    // Sort by date (earliest first)
+    return filtered.sort((a, b) => {
+      return new Date(a.dateValue).getTime() - new Date(b.dateValue).getTime();
+    });
+  }, [activeTab, date, city, type, levels, categories, viewMode]);
 
   const now = new Date();
   const todayString = now.toISOString().split("T")[0]; 
@@ -205,29 +221,40 @@ export default function Events() {
         <div className="flex flex-col gap-4">
           <div className="flex border-b border-[#E1E5EA]"></div>
           
-          <span className="font-sf-regular text-secondary-black text-base">
-            {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
-          </span>
+          <div className="flex justify-between items-center">
+            <span className="font-sf-regular text-secondary-black text-base">
+              {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
+            </span>
+            <div className="hidden md:block">
+              <ViewToggle value={viewMode} onChange={setViewMode} />
+            </div>
+          </div>
           
           {filteredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredEvents.map((event) => (
-                <Card
-                  key={event.id}
-                  id={event.id}
-                  slug={event.slug}
-                  title={event.title}
-                  date={event.date}
-                  location={event.location}
-                  city={event.city}
-                  image={event.image}
-                  eventType={event.eventType}
-                  skillLevel={event.skillLevelDisplay}
-                  categories={event.categories}
-                  registrationDeadline={event.registrationDeadline}
-                />
-              ))}
-            </div>
+            viewMode === "card" ? (
+              <div key="card-view" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredEvents.map((event) => (
+                  <Card
+                    key={`card-${event.id}`}
+                    id={event.id}
+                    slug={event.slug}
+                    title={event.title}
+                    date={event.date}
+                    location={event.location}
+                    city={event.city}
+                    image={event.image}
+                    eventType={event.eventType}
+                    skillLevel={event.skillLevelDisplay}
+                    categories={event.categories}
+                    registrationDeadline={event.registrationDeadline}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div key="table-view" className="bg-white border border-[#E1E5EA] rounded-2xl p-5">
+                <EventTable events={filteredEvents} />
+              </div>
+            )
           ) : (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <span className="font-sf-medium text-lg text-[#6B7280]">No Event Found</span>

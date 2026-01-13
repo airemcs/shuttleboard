@@ -10,11 +10,11 @@ interface CardProps {
   title: string;
   date: string;
   location: string;
-  city: string;
+  city?: string;
   image?: string;
   eventType: string;
-  skillLevel: string | string[];
-  categories: string[];
+  skillLevel?: string | string[];
+  categories?: string[];
   registrationDeadline?: string;
 }
 
@@ -23,20 +23,21 @@ export default function Card({
   title,
   date,
   location,
-  city,
+  city = "",
   image,
   eventType,
-  skillLevel,
-  categories,
+  skillLevel = [],
+  categories = [],
   registrationDeadline,
 }: CardProps) {
   const [imageError, setImageError] = useState(false);
+  
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
-  const skillLevels = Array.isArray(skillLevel) ? skillLevel : [skillLevel];
+  const skillLevels = Array.isArray(skillLevel) ? skillLevel : skillLevel ? [skillLevel] : [];
   
   // Extract province/region from city (e.g., "Bacoor, Cavite" → "Cavite")
-  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
+  const province = city && city.includes(",") ? city.split(",").pop()?.trim() : city;
   
   // Get registration status
   const registrationInfo = getRegistrationInfo(registrationDeadline);
@@ -47,7 +48,7 @@ export default function Card({
         {image && !imageError ? (
           <img 
             className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 ${
-              registrationInfo.status === "closed" ? "grayscale-[50%]" : ""
+              registrationInfo.status === "closed" ? "grayscale-0" : ""
             }`}
             src={image} 
             alt={title}
@@ -100,7 +101,7 @@ export default function Card({
           </div>
 
           <div className="flex justify-between border-t border-[#E1E5EA] pt-4">
-            <Pill text={skillLevels[0]} />
+            <Pill text={skillLevels[0] || ""} />
             <Next text="Details" size="sm" href={`/events/${slug}`} />
           </div>
         </div>
@@ -108,8 +109,10 @@ export default function Card({
         <div className="hidden lg:flex flex-col gap-y-4">
           <div className="flex gap-x-2">
             <Pill variant="primary" text={eventType} />
-            <Pill text={skillLevels[0]} />
-            {skillLevels.length > 1 && <Pill text={`+${skillLevels.length - 1}`} />}
+            {skillLevels.slice(0, 2).map((level) => (
+              <Pill key={level} text={level} />
+            ))}
+            {skillLevels.length > 2 && <Pill text={`+${skillLevels.length - 2}`} />}
           </div>
           <Next text="View Details" size="md" href={`/events/${slug}`} />
         </div>
