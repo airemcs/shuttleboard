@@ -21,7 +21,6 @@ const dateOptions = [
   { label: "This Year", value: "this-year" },
 ];
 
-
 const levelOptions = [
   { label: "Open", value: "Open" },
   { label: "A", value: "A" },
@@ -63,6 +62,11 @@ export default function Events() {
     setType("");
     setLevels([]);
     setCategories([]);
+  };
+
+  const handleViewModeChange = (newMode: ViewMode) => {
+    setViewMode(newMode);
+    setActiveTab("all");
   };
 
   const filteredEvents = useMemo(() => {
@@ -190,7 +194,7 @@ export default function Events() {
             )}
           </div>
 
-          <div className="flex-2">
+          <div className={`flex-2 transition-all duration-300 ease-in-out ${viewMode === "table" ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
             <Tabs tabs={tabs} defaultValue="all" onChange={setActiveTab} />
           </div>
         </div>
@@ -203,7 +207,7 @@ export default function Events() {
               {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
             </span>
             <div className="hidden md:block">
-              <ViewToggle value={viewMode} onChange={setViewMode} />
+              <ViewToggle value={viewMode} onChange={handleViewModeChange} />
             </div>
           </div>
           
