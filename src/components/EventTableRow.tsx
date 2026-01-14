@@ -30,7 +30,7 @@ export default function EventTableRow({
 
   return (
     <tr className={`hover:bg-[#F9FAFB] transition-colors ${isLast ? "" : "border-b border-[#E1E5EA]"}`}>
-      <td className="py-4 pr-4">
+      <td className="px-4 py-4">
         <div className="flex flex-col gap-1">
           <span className="font-sf-medium text-primary-black">{title}</span>
           <span className="font-sf-regular text-sm text-secondary-black">{location}, {province}</span>

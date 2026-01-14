@@ -39,7 +39,7 @@ export default function EventTable({ events }: EventTableProps) {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#E1E5EA]">
-                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Event</th>
+                  <th className="pl-4 py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Event</th>
                   <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Date</th>
                   <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Level</th>
                   <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Deadline</th>
