@@ -257,7 +257,7 @@ export default function Events() {
                     city={event.city}
                     image={event.image}
                     eventType={event.eventType}
-                    skillLevel={event.skillLevelDisplay}
+                    skillLevel={event.skillLevel}
                     categories={event.categories}
                     registrationDeadline={event.registrationDeadline}
                     registrationLink={event.registrationLink}
@@ -280,7 +280,7 @@ export default function Events() {
                         city={event.city}
                         image={event.image}
                         eventType={event.eventType}
-                        skillLevel={event.skillLevelDisplay}
+                        skillLevel={event.skillLevel}
                         categories={event.categories}
                         registrationDeadline={event.registrationDeadline}
                         registrationLink={event.registrationLink}

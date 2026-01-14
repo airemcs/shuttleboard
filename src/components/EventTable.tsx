@@ -61,7 +61,7 @@ export default function EventTable({ events }: EventTableProps) {
                     date={event.date}
                     location={event.location}
                     city={event.city}
-                    skillLevel={event.skillLevelDisplay}
+                    skillLevel={event.skillLevel}
                     registrationDeadline={event.registrationDeadline}
                     isLast={index === monthEvents.length - 1}
                   />

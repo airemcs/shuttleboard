@@ -3,28 +3,29 @@ import Pill from "@/components/Pill";
 import { getRegistrationInfo } from "@/utils/registration";
 import { MdArrowOutward } from "react-icons/md";
 
-interface EventTableRowProps {
+export interface EventTableRowProps {
   slug: string;
   title: string;
   date?: string;
   location: string;
   city?: string;
-  skillLevel: string | string[];
+  skillLevel?: string;
   registrationDeadline?: string;
   isLast?: boolean;
 }
 
-export default function EventTableRow({
-  slug,
-  title,
-  date,
-  location,
-  city = "",
-  skillLevel = [],
-  registrationDeadline,
-  isLast = false,
-}: EventTableRowProps) {
-  const skillLevels = Array.isArray(skillLevel) ? skillLevel : skillLevel ? [skillLevel] : [];
+export default function EventTableRow(props: EventTableRowProps) {
+  const {
+    slug,
+    title,
+    date,
+    location,
+    city = "",
+    skillLevel = "",
+    registrationDeadline,
+    isLast = false,
+  } = props;
+  
   const province = city && city.includes(",") ? city.split(",").pop()?.trim() : city;
   const registrationInfo = getRegistrationInfo(registrationDeadline);
 
@@ -42,12 +43,7 @@ export default function EventTableRow({
         </span>
       </td>
       <td className="py-4 pr-4">
-        <div className="flex gap-1 flex-wrap">
-          {skillLevels.slice(0, 2).map((level) => (
-            <Pill key={level} text={level} />
-          ))}
-          {skillLevels.length > 2 && <Pill text={`+${skillLevels.length - 2}`} />}
-        </div>
+        {skillLevel && <Pill text={skillLevel} />}
       </td>
       <td className="py-4 pr-4 whitespace-nowrap">
         {registrationInfo.status === "closed" ? (

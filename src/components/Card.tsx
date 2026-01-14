@@ -13,7 +13,7 @@ interface CardProps {
   city?: string;
   image?: string;
   eventType: string;
-  skillLevel?: string | string[];
+  skillLevel?: string;
   categories?: string[];
   registrationDeadline?: string;
   registrationLink?: string;
@@ -27,7 +27,7 @@ export default function Card({
   city = "",
   image,
   eventType,
-  skillLevel = [],
+  skillLevel = "",
   categories = [],
   registrationDeadline,
   registrationLink,
@@ -36,7 +36,6 @@ export default function Card({
   
   const displayedCategories = categories.slice(0, 3);
   const remainingCount = categories.length - 3;
-  const skillLevels = Array.isArray(skillLevel) ? skillLevel : skillLevel ? [skillLevel] : [];
   
   const province = city && city.includes(",") ? city.split(",").pop()?.trim() : city;
   
@@ -114,7 +113,7 @@ export default function Card({
           </div>
 
           <div className="flex justify-between border-t border-[#E1E5EA] pt-4">
-            <Pill text={skillLevels[0] || ""} />
+            {skillLevel && <Pill text={skillLevel} />}
             <Next text="Details" size="sm" href={`/events/${slug}`} />
           </div>
         </div>
@@ -122,10 +121,7 @@ export default function Card({
         <div className="hidden lg:flex flex-col gap-y-4">
           <div className="flex gap-x-2">
             <Pill variant="primary" text={eventType} />
-            {skillLevels.slice(0, 2).map((level) => (
-              <Pill key={level} text={level} />
-            ))}
-            {skillLevels.length > 2 && <Pill text={`+${skillLevels.length - 2}`} />}
+            {skillLevel && <Pill text={skillLevel} />}
           </div>
           <Next text="View Details" size="md" href={`/events/${slug}`} />
         </div>
