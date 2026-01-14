@@ -79,8 +79,8 @@ export default function Card({
         {registrationInfo.status === "closing-soon" && !isComingSoon && (
           <div className="absolute top-3 right-3">
             <span className="bg-amber-500 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
-              {registrationInfo.daysLeft === 0 
-                ? "Last day!" 
+              {registrationInfo.daysLeft === 1 
+                ? "Last Day!" 
                 : `${registrationInfo.daysLeft} day${registrationInfo.daysLeft === 1 ? "" : "s"} left`}
             </span>
           </div>

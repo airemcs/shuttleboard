@@ -19,7 +19,13 @@ const events = eventsData
     ...event,
     slug: event.slug || generateSlug(event.title),
   }))
-  .filter((event) => event.dateValue >= today)
+  .filter((event) => !event.dateValue || event.dateValue >= today)
+  .sort((a, b) => {
+    if (!a.dateValue && !b.dateValue) return 0;
+    if (!a.dateValue) return 1;
+    if (!b.dateValue) return -1;
+    return new Date(a.dateValue).getTime() - new Date(b.dateValue).getTime();
+  })
   .slice(0, 6); 
 
 export default function Home() {

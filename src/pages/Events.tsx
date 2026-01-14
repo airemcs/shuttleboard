@@ -21,20 +21,6 @@ const dateOptions = [
   { label: "This Year", value: "this-year" },
 ];
 
-// Extract unique cities from events data
-const uniqueCities = [...new Set(events.map((e) => e.city))].sort();
-const cityOptions = uniqueCities.map((city) => {
-  // Extract province/region for the label (e.g., "Bacoor, Cavite" → "Cavite")
-  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
-  return { label: province || city, value: city };
-});
-
-const typeOptions = [
-  { label: "Tournament", value: "Tournament" },
-  { label: "League", value: "League" },
-  { label: "Open Play", value: "Open Play" },
-];
-
 const levelOptions = [
   { label: "Open", value: "Open" },
   { label: "A", value: "A" },
@@ -46,7 +32,6 @@ const levelOptions = [
   { label: "G", value: "G" },
 ];
 
-// Extract unique categories from events data
 const uniqueCategories = [...new Set(events.flatMap((e) => e.categories))].sort();
 const categoryOptions = uniqueCategories.map((category) => ({
   label: category,
@@ -164,7 +149,7 @@ export default function Events() {
   const todayString = now.toISOString().split("T")[0]; 
 
   const allCount = events.length;
-  const upcomingCount = events.filter((e) => e.dateValue && e.dateValue >= todayString).length;
+  const upcomingCount = events.filter((e) => !e.dateValue || e.dateValue >= todayString).length;
   const pastCount = events.filter((e) => e.dateValue && e.dateValue < todayString).length;
 
   const tabs = [
@@ -184,13 +169,11 @@ export default function Events() {
       <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 md:px-8 flex flex-col gap-y-5 py-6 md:py-8 grow">
         <span className="font-sf-bold text-2xl md:text-4xl text-primary-black">All Badminton Events</span>
 
-        <div className="flex md:hidden flex-col gap-y-5">
+        <div className="flex lg:hidden flex-col gap-y-5">
           <Tabs tabs={tabs} defaultValue="all" onChange={setActiveTab} />
 
           <div className="flex flex-wrap gap-2">
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
-            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
@@ -205,12 +188,10 @@ export default function Events() {
           </div>
         </div>
 
-        <div className="hidden md:flex flex-row gap-y-5 items-center">
+        <div className="hidden lg:flex flex-row gap-y-5 items-center">
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
-            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
@@ -237,15 +218,14 @@ export default function Events() {
             <span className="font-sf-regular text-secondary-black text-base">
               {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
             </span>
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <ViewToggle value={viewMode} onChange={handleViewModeChange} />
             </div>
           </div>
           
           {filteredEvents.length > 0 ? (
             <>
-              {/* Mobile: Always show cards */}
-              <div className="md:hidden grid grid-cols-1 gap-4">
+              <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredEvents.map((event) => (
                   <Card
                     key={`mobile-card-${event.id}`}
@@ -265,10 +245,9 @@ export default function Events() {
                 ))}
               </div>
               
-              {/* Desktop: Respect viewMode toggle */}
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 {viewMode === "card" ? (
-                  <div key="card-view" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div key="card-view" className="grid grid-cols-2 xl:grid-cols-3 gap-4">
                     {filteredEvents.map((event) => (
                       <Card
                         key={`card-${event.id}`}

@@ -45,5 +45,92 @@
 
       "#ShuttleForce #GoodmintonSmashZone #StartTheYearStrong #BadmintonPH #maketimeforgoodthings #PasigBadminton"
     ]
+  },
+  {
+    "id": 2,
+    "slug": "red-court-valentine-tournament-2026",
+    "title": "1st Red Court Valentine Tournament",
+    "date": "",
+    "dateValue": "",
+    "registrationDeadline": "",
+    "location": "Red Court Sports Center",
+    "city": "Tunasan, Muntinlupa",
+    "image": "/red-court-valentine-tournament-2026.jpg",
+    "eventType": "Tournament",
+    "skillLevel": "All Levels",
+    "skillLevelDisplay": ["Beginner", "Intermediate", "Advance"],
+    "categories": ["Men's Doubles", "Mixed Doubles", "Non-Gender Doubles"],
+    "organizer": "Red Court Sports Center",
+    "organizerLink": "https://www.facebook.com/redcourtsportscenter",
+    "registrationLink": "https://www.facebook.com/reel/1517573669299846/",
+    "description": [
+      "❤️🏸 Love is in the court!",
+      
+      "Get ready for the Kilig Cup 2K26, the first-ever Valentine-themed badminton tournament at Red Court Sports Center. It’s going to be unforgettable.",
+      
+      "Stay tuned for more details!",
+
+      "#redcourtsportscenter \n#valentinesbadmintontournament \n#badmintontournament"
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "ang-love-month-fun-game-2026",
+    "title": "ANG Love Month Fun Game",
+    "date": "February 26, 2026",
+    "dateValue": "2026-02-26",
+    "registrationDeadline": "",
+    "location": "Powerhouse Pickleball & Badminton Center",
+    "city": "Silang, Cavite",
+    "image": "/ang-love-month-fun-game-2026.jpg",
+    "eventType": "Tournament",
+    "skillLevel": "All Levels",
+    "skillLevelDisplay": ["Intermediate", "Advance"],
+    "categories": ["Non-Gender Doubles"],
+    "organizer": "Jeho",
+    "organizerLink": "https://www.facebook.com/Jehoooooooo",
+    "registrationLink": "https://www.facebook.com/Jehoooooooo/posts/pfbid02BfVzkrDEd35Nz5sYBsVdkok7vfEWS17KWnzfC96BBXQCF8R8YBMDpeuFGXDiV63Rl",
+    "description": [
+      "🏸❤️ ANG Love Month Fun Game is ON! ❤️🏸",
+
+      "Calling all badminton players! Whether you’re advanced, intermediate, or just playing for fun, this night is for YOU.",
+
+      "Good games, great vibes, prizes, and an all-nighter with the All Nighters Gang (ANG)! ",
+
+      "📅 Feb 6, 2026 | 6:30 PM onwards \n 📍 Powerhouse Pickleball & Badminton Center \n 🏆 Medals & cash prizes \n 👫 Non-gender category",
+
+      "Bring your partner, friends, or family— let’s smash, rally, and celebrate love on court! 💕🔥",
+
+      "📩 Message now to secure your slot!",
+
+      "#ANG #AllNightersGang #LoveMonthFunGame #BadmintonPH #SmashWithLove #GameAllNight"
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "pampanga-badminton-open-2026",
+    "title": "Pampanga Badminton Open 2026",
+    "date": "January 31, 2026",
+    "dateValue": "2026-01-31",
+    "registrationDeadline": "1/15/2026",
+    "location": "Delta Badminton Center",
+    "city": "San Fernando, Pampanga",
+    "image": "/pampanga-badminton-open-2026.jpg",
+    "eventType": "Tournament",
+    "skillLevel": "Level C - E",
+    "skillLevelDisplay": ["C", "D", "E"],
+    "categories": ["Singles", "Men's Doubles", "Women's Doubles", "Mixed Doubles"],
+    "organizer": "Pampanga Badminton Open 2026",
+    "organizerLink": "https://www.facebook.com/profile.php?id=100084826873117",
+    "registrationLink": "https://www.facebook.com/permalink.php?story_fbid=pfbid02Db7XyyYuR54SA6HHszXstd3v6M5uc5PfUcPBvgySNdfVqxsmwuDuPH5RjWvW9i9kl&id=100084826873117",
+    "description": [
+      "Calling all badminton enthusiasts! 🏸",
+      
+      "✨ Join us for the Pampanga Badminton Open 2026 on January 31 (Sat) and kickstart the year with a smashin' good time!",
+      
+      "🤩 Let's get fit, have fun, and gear up for the competitive season ahead!",
+      
+      "🔥 See you on court! 🎉"
+    ]
   }
 ]
