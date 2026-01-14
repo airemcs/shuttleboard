@@ -16,6 +16,7 @@ interface CardProps {
   skillLevel?: string | string[];
   categories?: string[];
   registrationDeadline?: string;
+  registrationLink?: string;
 }
 
 export default function Card({
@@ -29,6 +30,7 @@ export default function Card({
   skillLevel = [],
   categories = [],
   registrationDeadline,
+  registrationLink,
 }: CardProps) {
   const [imageError, setImageError] = useState(false);
   
@@ -36,11 +38,11 @@ export default function Card({
   const remainingCount = categories.length - 3;
   const skillLevels = Array.isArray(skillLevel) ? skillLevel : skillLevel ? [skillLevel] : [];
   
-  // Extract province/region from city (e.g., "Bacoor, Cavite" → "Cavite")
   const province = city && city.includes(",") ? city.split(",").pop()?.trim() : city;
   
-  // Get registration status
   const registrationInfo = getRegistrationInfo(registrationDeadline);
+  
+  const isComingSoon = !registrationLink && registrationInfo.status !== "closed";
 
   return (
     <div className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
@@ -66,7 +68,14 @@ export default function Card({
         )}
 
         {/* Registration status badges */}
-        {registrationInfo.status === "closing-soon" && (
+        {isComingSoon && (
+          <div className="absolute top-3 right-3">
+            <span className="bg-[#6B7280] text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
+              Coming Soon!
+            </span>
+          </div>
+        )}
+        {registrationInfo.status === "closing-soon" && !isComingSoon && (
           <div className="absolute top-3 right-3">
             <span className="bg-amber-500 text-white text-xs font-sf-bold px-2.5 py-1.5 rounded-sm shadow-sm">
               {registrationInfo.daysLeft === 0 

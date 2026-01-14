@@ -21,6 +21,20 @@ const dateOptions = [
   { label: "This Year", value: "this-year" },
 ];
 
+// Extract unique cities from events data
+const uniqueCities = [...new Set(events.map((e) => e.city))].sort();
+const cityOptions = uniqueCities.map((city) => {
+  // Extract province/region for the label (e.g., "Bacoor, Cavite" → "Cavite")
+  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
+  return { label: province || city, value: city };
+});
+
+const typeOptions = [
+  { label: "Tournament", value: "Tournament" },
+  { label: "League", value: "League" },
+  { label: "Open Play", value: "Open Play" },
+];
+
 const levelOptions = [
   { label: "Open", value: "Open" },
   { label: "A", value: "A" },
@@ -32,6 +46,7 @@ const levelOptions = [
   { label: "G", value: "G" },
 ];
 
+// Extract unique categories from events data
 const uniqueCategories = [...new Set(events.flatMap((e) => e.categories))].sort();
 const categoryOptions = uniqueCategories.map((category) => ({
   label: category,
@@ -77,6 +92,7 @@ export default function Events() {
       const eventDate = new Date(event.dateValue);
       eventDate.setHours(0, 0, 0, 0);
       
+      // In table view, only show events from the current year
       if (viewMode === "table") {
         const currentYear = today.getFullYear();
         if (eventDate.getFullYear() !== currentYear) return false;
@@ -89,7 +105,7 @@ export default function Events() {
         const endDate = new Date(today);
         
         if (date === "this-month") {
-          endDate.setMonth(today.getMonth() + 1, 0);
+          endDate.setMonth(today.getMonth() + 1, 0); // End of current month
         } else if (date === "3-months") {
           endDate.setMonth(today.getMonth() + 3);
         } else if (date === "6-months") {
@@ -104,11 +120,13 @@ export default function Events() {
       if (city && event.city !== city) return false;
       if (type && event.eventType !== type) return false;
       
+      // Filter by levels - check if any selected level matches the event's skillLevelDisplay
       if (levels.length > 0) {
         const eventLevels = Array.isArray(event.skillLevelDisplay) 
           ? event.skillLevelDisplay 
           : [event.skillLevelDisplay];
         
+        // Check if any selected level is found in the event's levels
         const hasMatchingLevel = levels.some((selectedLevel) =>
           eventLevels.some((eventLevel) => 
             eventLevel.toLowerCase().includes(selectedLevel.toLowerCase()) ||
@@ -118,6 +136,7 @@ export default function Events() {
         if (!hasMatchingLevel) return false;
       }
 
+      // Filter by categories - check if any selected category matches
       if (categories.length > 0) {
         const hasMatchingCategory = categories.some((selectedCategory) =>
           event.categories.includes(selectedCategory)
@@ -128,6 +147,7 @@ export default function Events() {
       return true;
     });
     
+    // Sort by date (earliest first)
     return filtered.sort((a, b) => {
       return new Date(a.dateValue).getTime() - new Date(b.dateValue).getTime();
     });
@@ -162,6 +182,8 @@ export default function Events() {
 
           <div className="flex flex-wrap gap-2">
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
+            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
+            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
@@ -180,6 +202,8 @@ export default function Events() {
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
+            <Chip label="City" options={cityOptions} value={city} onChange={setCity} />
+            <Chip label="Type" options={typeOptions} value={type} onChange={setType} />
             <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
@@ -213,6 +237,7 @@ export default function Events() {
           
           {filteredEvents.length > 0 ? (
             <>
+              {/* Mobile: Always show cards */}
               <div className="md:hidden grid grid-cols-1 gap-4">
                 {filteredEvents.map((event) => (
                   <Card
@@ -228,10 +253,12 @@ export default function Events() {
                     skillLevel={event.skillLevelDisplay}
                     categories={event.categories}
                     registrationDeadline={event.registrationDeadline}
+                    registrationLink={event.registrationLink}
                   />
                 ))}
               </div>
               
+              {/* Desktop: Respect viewMode toggle */}
               <div className="hidden md:block">
                 {viewMode === "card" ? (
                   <div key="card-view" className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -249,6 +276,7 @@ export default function Events() {
                         skillLevel={event.skillLevelDisplay}
                         categories={event.categories}
                         registrationDeadline={event.registrationDeadline}
+                        registrationLink={event.registrationLink}
                       />
                     ))}
                   </div>

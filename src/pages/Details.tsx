@@ -86,7 +86,7 @@ export default function Details() {
     if (status === "closing-soon") {
       return (
         <span className="text-amber-600">
-          {formattedDeadline} • {(getDaysLeftLabel(daysLeft))}
+          {formattedDeadline} • {getDaysLeftLabel(daysLeft)}
         </span>
       );
     }
@@ -130,6 +130,9 @@ export default function Details() {
             {skillLevels.map((level) => (
               <Pill key={level} text={level} />
             ))}
+            {!event.registrationLink && registrationInfo.status !== "closed" && (
+              <Pill text="Coming Soon" />
+            )}
             {registrationInfo.status === "closing-soon" && (
               <Pill variant="warning" text="Closing Soon" />
             )}
@@ -142,7 +145,7 @@ export default function Details() {
 
           <div className="p-5 border bg-white border-[#E1E5EA] rounded-2xl capitalize">
             <InfoRow icon={<FaCalendar className="size-4 text-[#4A5568]" />} label="DATES" value={event.date} />
-            <InfoRow icon={<FaLocationDot className="size-4 text-[#4A5568]" />} label="LOCATION" value={event.location + " - " + event.city} />
+            <InfoRow icon={<FaLocationDot className="size-4 text-[#4A5568]" />} label="LOCATION" value={event.location} />
             <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />
             <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={skillLevelText} />
@@ -174,6 +177,15 @@ export default function Details() {
                   variant="disabled" 
                   size="xl" 
                   text="Registration Closed" 
+                  disabled
+                />
+              </div>
+            ) : !event.registrationLink ? (
+              <div className="w-full">
+                <Button 
+                  variant="neutral" 
+                  size="xl" 
+                  text="Registration Coming Soon" 
                   disabled
                 />
               </div>

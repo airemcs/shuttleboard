@@ -13,7 +13,7 @@ export interface Event {
   categories: string[];
   organizer: string;
   organizerLink: string;
-  registrationLink: string;
+  registrationLink?: string;
   registrationDeadline?: string;
   description: string[];
 }

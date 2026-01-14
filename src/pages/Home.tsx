@@ -69,6 +69,7 @@ export default function Home() {
             skillLevel={event.skillLevelDisplay}
             categories={event.categories}
             registrationDeadline={event.registrationDeadline}
+            registrationLink={event.registrationLink}
           />
         ))}
       </div>
