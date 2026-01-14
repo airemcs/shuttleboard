@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import Button from "@/components/Button";
-import { GiShuttlecock } from "react-icons/gi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

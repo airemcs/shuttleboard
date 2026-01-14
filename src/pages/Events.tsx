@@ -22,18 +22,18 @@ const dateOptions = [
 ];
 
 // Extract unique cities from events data
-const uniqueCities = [...new Set(events.map((e) => e.city))].sort();
-const cityOptions = uniqueCities.map((city) => {
-  // Extract province/region for the label (e.g., "Bacoor, Cavite" → "Cavite")
-  const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
-  return { label: province || city, value: city };
-});
+// const uniqueCities = [...new Set(events.map((e) => e.city))].sort();
+// const cityOptions = uniqueCities.map((city) => {
+//   // Extract province/region for the label (e.g., "Bacoor, Cavite" → "Cavite")
+//   const province = city.includes(",") ? city.split(",").pop()?.trim() : city;
+//   return { label: province || city, value: city };
+// });
 
-const typeOptions = [
-  { label: "Tournament", value: "Tournament" },
-  { label: "League", value: "League" },
-  { label: "Open Play", value: "Open Play" },
-];
+// const typeOptions = [
+//   { label: "Tournament", value: "Tournament" },
+//   { label: "League", value: "League" },
+//   { label: "Open Play", value: "Open Play" },
+// ];
 
 const levelOptions = [
   { label: "Open", value: "Open" },
