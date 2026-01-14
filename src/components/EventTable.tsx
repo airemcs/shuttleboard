@@ -19,7 +19,7 @@ function groupEventsByMonth(events: Event[]): Map<string, Event[]> {
         year: "numeric" 
       });
     } else {
-      monthYear = "Date To Be Announced";
+      monthYear = "To Be Announced";
     }
     
     if (!grouped.has(monthYear)) {
