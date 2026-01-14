@@ -144,7 +144,11 @@ export default function Details() {
           <span className="font-sf-bold text-2xl lg:text-4xl">{event.title}</span>
 
           <div className="p-5 border bg-white border-[#E1E5EA] rounded-2xl capitalize">
-            <InfoRow icon={<FaCalendar className="size-4 text-[#4A5568]" />} label="DATES" value={event.date} />
+            <InfoRow 
+              icon={<FaCalendar className="size-4 text-[#4A5568]" />} 
+              label="DATES" 
+              value={event.date ? event.date : <span className="text-tertiary-black italic normal-case">To Be Announced</span>} 
+            />
             <InfoRow icon={<FaLocationDot className="size-4 text-[#4A5568]" />} label="LOCATION" value={event.location} />
             <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />

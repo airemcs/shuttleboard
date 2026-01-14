@@ -8,7 +8,7 @@ interface CardProps {
   id: number;
   slug: string;
   title: string;
-  date: string;
+  date?: string;
   location: string;
   city?: string;
   image?: string;
@@ -43,6 +43,8 @@ export default function Card({
   const registrationInfo = getRegistrationInfo(registrationDeadline);
   
   const isComingSoon = !registrationLink && registrationInfo.status !== "closed";
+  
+  const isDateComingSoon = !date;
 
   return (
     <div className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
@@ -50,7 +52,7 @@ export default function Card({
         {image && !imageError ? (
           <img 
             className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 ${
-              registrationInfo.status === "closed" ? "grayscale-0" : ""
+              registrationInfo.status === "closed" ? "grayscale-[50%]" : ""
             }`}
             src={image} 
             alt={title}
@@ -96,7 +98,9 @@ export default function Card({
       <div className="flex flex-col p-5 gap-y-4">
         <div className="flex flex-col">
           <span className="font-sf-bold text-primary-black truncate text-base lg:text-xl">{title}</span>
-          <span className="font-sf-regular text-sm lg:text-base text-secondary-black">{date}</span>
+          <span className={`font-sf-regular text-sm lg:text-base ${isDateComingSoon ? "text-tertiary-black italic" : "text-secondary-black"}`}>
+            {date || "To Be Announced"}
+          </span>
           <span className="font-sf-regular text-sm lg:text-base text-secondary-black">{location}, {province}</span>
         </div>
 

@@ -89,19 +89,22 @@ export default function Events() {
     today.setHours(0, 0, 0, 0);
     
     const filtered = events.filter((event) => {
-      const eventDate = new Date(event.dateValue);
-      eventDate.setHours(0, 0, 0, 0);
+      // Handle events without dates
+      const hasDate = !!event.dateValue;
+      const eventDate = hasDate ? new Date(event.dateValue as string) : null;
+      if (eventDate) eventDate.setHours(0, 0, 0, 0);
       
-      // In table view, only show events from the current year
-      if (viewMode === "table") {
+      // In table view, only show events from the current year (or events without dates)
+      if (viewMode === "table" && hasDate) {
         const currentYear = today.getFullYear();
-        if (eventDate.getFullYear() !== currentYear) return false;
+        if (eventDate!.getFullYear() !== currentYear) return false;
       }
       
-      if (activeTab === "upcoming" && eventDate < today) return false;
-      if (activeTab === "past" && eventDate >= today) return false;
+      // Tab filtering - events without dates show in "all" and "upcoming"
+      if (activeTab === "upcoming" && hasDate && eventDate! < today) return false;
+      if (activeTab === "past" && (!hasDate || eventDate! >= today)) return false;
 
-      if (date) {
+      if (date && hasDate) {
         const endDate = new Date(today);
         
         if (date === "this-month") {
@@ -114,7 +117,7 @@ export default function Events() {
           endDate.setFullYear(today.getFullYear(), 11, 31);
         }
 
-        if (eventDate < today || eventDate > endDate) return false;
+        if (eventDate! < today || eventDate! > endDate) return false;
       }
 
       if (city && event.city !== city) return false;
@@ -147,8 +150,12 @@ export default function Events() {
       return true;
     });
     
-    // Sort by date (earliest first)
+    // Sort by date (earliest first, events without dates go to the end)
     return filtered.sort((a, b) => {
+      // Events without dates go to the end
+      if (!a.dateValue && !b.dateValue) return 0;
+      if (!a.dateValue) return 1;
+      if (!b.dateValue) return -1;
       return new Date(a.dateValue).getTime() - new Date(b.dateValue).getTime();
     });
   }, [activeTab, date, city, type, levels, categories, viewMode]);
@@ -157,8 +164,8 @@ export default function Events() {
   const todayString = now.toISOString().split("T")[0]; 
 
   const allCount = events.length;
-  const upcomingCount = events.filter((e) => e.dateValue >= todayString).length;
-  const pastCount = events.filter((e) => e.dateValue < todayString).length;
+  const upcomingCount = events.filter((e) => e.dateValue && e.dateValue >= todayString).length;
+  const pastCount = events.filter((e) => e.dateValue && e.dateValue < todayString).length;
 
   const tabs = [
     { label: "All", count: allCount, value: "all" },

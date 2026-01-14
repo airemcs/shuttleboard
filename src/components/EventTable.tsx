@@ -10,11 +10,17 @@ function groupEventsByMonth(events: Event[]): Map<string, Event[]> {
   const grouped = new Map<string, Event[]>();
   
   events.forEach((event) => {
-    const date = new Date(event.dateValue);
-    const monthYear = date.toLocaleDateString("en-US", { 
-      month: "long", 
-      year: "numeric" 
-    });
+    let monthYear: string;
+    
+    if (event.dateValue) {
+      const date = new Date(event.dateValue);
+      monthYear = date.toLocaleDateString("en-US", { 
+        month: "long", 
+        year: "numeric" 
+      });
+    } else {
+      monthYear = "Date To Be Announced";
+    }
     
     if (!grouped.has(monthYear)) {
       grouped.set(monthYear, []);
@@ -36,14 +42,14 @@ export default function EventTable({ events }: EventTableProps) {
           {index > 0 && <div className="border-t border-[#E1E5EA] my-6" />}
           <h3 className="font-sf-bold text-lg text-primary-black mb-4 pb-2 border-b-2 border-primary-green w-fit sticky top-0 bg-white z-10 pt-2 -mt-2">{monthYear}</h3>
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full table-fixed">
               <thead>
                 <tr className="border-b border-[#E1E5EA]">
-                  <th className="pl-4 py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Event</th>
-                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Date</th>
-                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Level</th>
-                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide">Deadline</th>
-                  <th className="py-3 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide"></th>
+                  <th className="pl-4 py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide w-[40%]">Event</th>
+                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide w-[15%]">Date</th>
+                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide w-[18%]">Level</th>
+                  <th className="py-3 pr-4 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide w-[18%]">Deadline</th>
+                  <th className="py-3 text-left font-sf-medium text-xs text-tertiary-black uppercase tracking-wide w-[9%]"></th>
                 </tr>
               </thead>
               <tbody>
