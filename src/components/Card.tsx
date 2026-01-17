@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Pill from "@/components/Pill";
 import Next from "@/components/Next";
-import { FiImage, FiX } from "react-icons/fi";
+import { FiImage, FiX, FiZoomIn } from "react-icons/fi";
 import { getRegistrationInfo } from "@/utils/registration";
 
 interface CardProps {
@@ -68,15 +68,19 @@ export default function Card({
       <div className="flex flex-col border rounded-2xl overflow-hidden bg-white hover:shadow-md transition-shadow">
         <div className="relative">
           {image && !imageError ? (
-            <img 
-              className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 cursor-pointer ${
-                registrationInfo.status === "closed" ? "grayscale-0" : ""
-              }`}
-              src={image} 
-              alt={title}
-              onError={() => setImageError(true)}
-              onClick={handleImageClick}
-            />
+            <div className="relative group cursor-pointer" onClick={handleImageClick}>
+              <img 
+                className={`w-full h-48 lg:h-56 object-cover object-top shrink-0 ${
+                  registrationInfo.status === "closed" ? "grayscale-0" : ""
+                }`}
+                src={image} 
+                alt={title}
+                onError={() => setImageError(true)}
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-200 flex items-center justify-center">
+                <FiZoomIn className="size-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </div>
+            </div>
           ) : (
             <div className="w-full h-48 lg:h-56 bg-[#EAEEED] flex flex-col items-center justify-center gap-2 shrink-0">
               <FiImage className="size-12 text-[#9CA3AF]" />
@@ -165,14 +169,22 @@ export default function Card({
           </button>
 
           <div
-            className="relative max-w-[90vw] max-h-[90vh]"
+            className="relative group"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={image}
               alt={title}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg cursor-pointer"
+              onClick={handleCloseModal}
             />
+            
+            <div 
+              className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-200 flex items-center justify-center rounded-lg pointer-events-none"
+            >
+              <FiZoomIn className="size-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 rotate-180" />
+            </div>
+            
           </div>
         </div>
       )}
