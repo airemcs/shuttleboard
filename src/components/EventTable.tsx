@@ -5,7 +5,20 @@ interface EventTableProps {
   events: Event[];
 }
 
-// Group events by month
+// Filter out past events
+function filterUpcomingEvents(events: Event[]): Event[] {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return events.filter((event) => {
+    if (!event.dateValue) return true; // Keep events without dates
+    // Parse date components directly to avoid timezone issues
+    const [year, month, day] = event.dateValue.split("-").map(Number);
+    const eventDate = new Date(year, month - 1, day);
+    return eventDate >= today;
+  });
+}
+
 function groupEventsByMonth(events: Event[]): Map<string, Event[]> {
   const grouped = new Map<string, Event[]>();
   
@@ -13,7 +26,8 @@ function groupEventsByMonth(events: Event[]): Map<string, Event[]> {
     let monthYear: string;
     
     if (event.dateValue) {
-      const date = new Date(event.dateValue);
+      const [year, month, day] = event.dateValue.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
       monthYear = date.toLocaleDateString("en-US", { 
         month: "long", 
         year: "numeric" 
@@ -32,8 +46,18 @@ function groupEventsByMonth(events: Event[]): Map<string, Event[]> {
 }
 
 export default function EventTable({ events }: EventTableProps) {
-  const groupedEvents = groupEventsByMonth(events);
+  const upcomingEvents = filterUpcomingEvents(events);
+  const groupedEvents = groupEventsByMonth(upcomingEvents);
   const monthEntries = Array.from(groupedEvents.entries());
+  
+  if (upcomingEvents.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-center">
+        <span className="font-sf-medium text-lg text-[#6B7280]">No Upcoming Events</span>
+        <span className="font-sf-regular text-sm text-[#9CA3AF]">Check back later for new events</span>
+      </div>
+    );
+  }
   
   return (
     <div className="flex flex-col">

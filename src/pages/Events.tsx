@@ -145,6 +145,26 @@ export default function Events() {
     });
   }, [activeTab, date, city, type, levels, categories, viewMode]);
 
+  // Separate upcoming and past events for the "all" tab
+  const { upcomingEvents, pastEvents } = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcoming = filteredEvents.filter((e) => {
+      if (!e.dateValue) return true;
+      const eventDate = new Date(e.dateValue + "T00:00:00");
+      return eventDate >= today;
+    });
+    
+    const past = filteredEvents.filter((e) => {
+      if (!e.dateValue) return false;
+      const eventDate = new Date(e.dateValue + "T00:00:00");
+      return eventDate < today;
+    });
+
+    return { upcomingEvents: upcoming, pastEvents: past };
+  }, [filteredEvents]);
+
   const now = new Date();
   const todayString = now.toISOString().split("T")[0]; 
 
@@ -157,6 +177,58 @@ export default function Events() {
     { label: "Upcoming", count: upcomingCount, value: "upcoming" },
     { label: "Past Events", count: pastCount, value: "past" },
   ];
+
+  const renderCardGrid = (eventsToRender: Event[], keyPrefix: string) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {eventsToRender.map((event) => (
+        <Card
+          key={`${keyPrefix}-${event.id}`}
+          id={event.id}
+          slug={event.slug}
+          title={event.title}
+          date={event.date}
+          location={event.location}
+          city={event.city}
+          image={event.image}
+          eventType={event.eventType}
+          skillLevel={event.skillLevel}
+          categories={event.categories}
+          registrationDeadline={event.registrationDeadline}
+          registrationLink={event.registrationLink}
+        />
+      ))}
+    </div>
+  );
+
+  const renderMobileCardGrid = (eventsToRender: Event[], keyPrefix: string) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {eventsToRender.map((event) => (
+        <Card
+          key={`${keyPrefix}-${event.id}`}
+          id={event.id}
+          slug={event.slug}
+          title={event.title}
+          date={event.date}
+          location={event.location}
+          city={event.city}
+          image={event.image}
+          eventType={event.eventType}
+          skillLevel={event.skillLevel}
+          categories={event.categories}
+          registrationDeadline={event.registrationDeadline}
+          registrationLink={event.registrationLink}
+        />
+      ))}
+    </div>
+  );
+
+  const SectionHeader = ({ title }: { title: string }) => (
+    <div className="mb-4">
+      <h3 className="font-sf-bold text-lg text-primary-black pb-2 border-b-2 border-primary-green w-fit">
+        {title}
+      </h3>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] flex flex-col">
@@ -225,46 +297,48 @@ export default function Events() {
           
           {filteredEvents.length > 0 ? (
             <>
-              <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredEvents.map((event) => (
-                  <Card
-                    key={`mobile-card-${event.id}`}
-                    id={event.id}
-                    slug={event.slug}
-                    title={event.title}
-                    date={event.date}
-                    location={event.location}
-                    city={event.city}
-                    image={event.image}
-                    eventType={event.eventType}
-                    skillLevel={event.skillLevel}
-                    categories={event.categories}
-                    registrationDeadline={event.registrationDeadline}
-                    registrationLink={event.registrationLink}
-                  />
-                ))}
+              <div className="lg:hidden flex flex-col gap-6">
+                {activeTab === "all" ? (
+                  <>
+                    {upcomingEvents.length > 0 && (
+                      <div>
+                        <SectionHeader title="Upcoming" />
+                        {renderMobileCardGrid(upcomingEvents, "mobile-upcoming")}
+                      </div>
+                    )}
+                    {pastEvents.length > 0 && (
+                      <div>
+                        <SectionHeader title="Completed" />
+                        {renderMobileCardGrid(pastEvents, "mobile-past")}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  renderMobileCardGrid(filteredEvents, "mobile-card")
+                )}
               </div>
               
               <div className="hidden lg:block">
                 {viewMode === "card" ? (
-                  <div key="card-view" className="grid grid-cols-2 xl:grid-cols-3 gap-4">
-                    {filteredEvents.map((event) => (
-                      <Card
-                        key={`card-${event.id}`}
-                        id={event.id}
-                        slug={event.slug}
-                        title={event.title}
-                        date={event.date}
-                        location={event.location}
-                        city={event.city}
-                        image={event.image}
-                        eventType={event.eventType}
-                        skillLevel={event.skillLevel}
-                        categories={event.categories}
-                        registrationDeadline={event.registrationDeadline}
-                        registrationLink={event.registrationLink}
-                      />
-                    ))}
+                  <div key="card-view" className="flex flex-col gap-8">
+                    {activeTab === "all" ? (
+                      <>
+                        {upcomingEvents.length > 0 && (
+                          <div>
+                            <SectionHeader title="Upcoming" />
+                            {renderCardGrid(upcomingEvents, "desktop-upcoming")}
+                          </div>
+                        )}
+                        {pastEvents.length > 0 && (
+                          <div>
+                            <SectionHeader title="Completed" />
+                            {renderCardGrid(pastEvents, "desktop-past")}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      renderCardGrid(filteredEvents, "card")
+                    )}
                   </div>
                 ) : (
                   <div key="table-view" className="bg-white border border-[#E1E5EA] rounded-2xl p-5">
