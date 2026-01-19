@@ -21,15 +21,28 @@ const dateOptions = [
   { label: "This Year", value: "this-year" },
 ];
 
-const levelOptions = [
-  { label: "Open", value: "Open" },
-  { label: "A", value: "A" },
-  { label: "B", value: "B" },
-  { label: "C", value: "C" },
-  { label: "D", value: "D" },
-  { label: "E", value: "E" },
-  { label: "F", value: "F" },
-  { label: "G", value: "G" },
+const levelGroups = [
+  {
+    label: "Level",
+    options: [
+      { label: "Open", value: "Open" },
+      { label: "A", value: "A" },
+      { label: "B", value: "B" },
+      { label: "C", value: "C" },
+      { label: "D", value: "D" },
+      { label: "E", value: "E" },
+      { label: "F", value: "F" },
+      { label: "G", value: "G" },
+    ],
+  },
+  {
+    label: "Skill",
+    options: [
+      { label: "Beginner", value: "Beginner" },
+      { label: "Intermediate", value: "Intermediate" },
+      { label: "Advance", value: "Advance" },
+    ],
+  },
 ];
 
 const uniqueCategories = [...new Set(events.flatMap((e) => e.categories))].sort();
@@ -108,18 +121,15 @@ export default function Events() {
       if (city && event.city !== city) return false;
       if (type && event.eventType !== type) return false;
       
-      // Filter by levels - check if any selected level matches the event's skillLevelDisplay
+      // Filter by levels (A-G, Open, Beginner, Intermediate, Advance) - exact match
       if (levels.length > 0) {
         const eventLevels = Array.isArray(event.skillLevelDisplay) 
           ? event.skillLevelDisplay 
           : [event.skillLevelDisplay];
         
-        // Check if any selected level is found in the event's levels
+        // Check if any selected level exactly matches the event's levels
         const hasMatchingLevel = levels.some((selectedLevel) =>
-          eventLevels.some((eventLevel) => 
-            eventLevel.toLowerCase().includes(selectedLevel.toLowerCase()) ||
-            eventLevel.includes(`Level ${selectedLevel}`)
-          )
+          eventLevels.some((eventLevel) => eventLevel === selectedLevel)
         );
         if (!hasMatchingLevel) return false;
       }
@@ -152,13 +162,17 @@ export default function Events() {
 
     const upcoming = filteredEvents.filter((e) => {
       if (!e.dateValue) return true;
-      const eventDate = new Date(e.dateValue + "T00:00:00");
+      // Parse date components directly to avoid timezone issues
+      const [year, month, day] = e.dateValue.split("-").map(Number);
+      const eventDate = new Date(year, month - 1, day); // month is 0-indexed
       return eventDate >= today;
     });
     
     const past = filteredEvents.filter((e) => {
       if (!e.dateValue) return false;
-      const eventDate = new Date(e.dateValue + "T00:00:00");
+      // Parse date components directly to avoid timezone issues
+      const [year, month, day] = e.dateValue.split("-").map(Number);
+      const eventDate = new Date(year, month - 1, day); // month is 0-indexed
       return eventDate < today;
     });
 
@@ -246,7 +260,7 @@ export default function Events() {
 
           <div className="flex flex-wrap gap-2">
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
+            <MultiSelectChip label="Level" groups={levelGroups} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
             {hasActiveFilters && (
@@ -264,7 +278,7 @@ export default function Events() {
           <div className="flex flex-3 flex-wrap gap-2 items-center">
             <span className="font-sf-regular text-secondary-black">Filter by</span>
             <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
-            <MultiSelectChip label="Level" options={levelOptions} value={levels} onChange={setLevels} />
+            <MultiSelectChip label="Level" groups={levelGroups} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             
             {hasActiveFilters && (
@@ -297,6 +311,7 @@ export default function Events() {
           
           {filteredEvents.length > 0 ? (
             <>
+              {/* Mobile View */}
               <div className="lg:hidden flex flex-col gap-6">
                 {activeTab === "all" ? (
                   <>
@@ -318,6 +333,7 @@ export default function Events() {
                 )}
               </div>
               
+              {/* Desktop View */}
               <div className="hidden lg:block">
                 {viewMode === "card" ? (
                   <div key="card-view" className="flex flex-col gap-8">

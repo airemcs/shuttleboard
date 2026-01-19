@@ -65,19 +65,15 @@ export default function Chip({ label, options, value, onChange }: ChipProps) {
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 bg-white border border-[#E1E5EA] rounded-lg shadow-lg z-50 min-w-[150px]">
-          {selected && (
-            <div
-              onClick={handleClear}
-              className="py-2 px-4 text-sm text-[#9CA3AF] hover:bg-[#F3F4F6] cursor-pointer border-b border-[#E1E5EA]"
-            >
-              Clear
-            </div>
-          )}
-          {options.map((option) => (
+          {options.map((option, index) => (
             <div
               key={option.value}
               onClick={() => handleSelect(option.value)}
-              className={`py-2 px-4 text-sm cursor-pointer first:rounded-t-lg last:rounded-b-lg ${
+              className={`py-2 px-4 text-sm cursor-pointer ${
+                index === 0 ? "rounded-t-lg" : ""
+              } ${
+                !selected && index === options.length - 1 ? "rounded-b-lg" : ""
+              } ${
                 selected === option.value
                   ? "bg-primary-green-light text-primary-green font-sf-medium"
                   : "text-primary-black hover:bg-[#F3F4F6]"
@@ -86,6 +82,14 @@ export default function Chip({ label, options, value, onChange }: ChipProps) {
               {option.label}
             </div>
           ))}
+          {selected && (
+            <div
+              onClick={handleClear}
+              className="py-2 px-4 text-sm text-[#9CA3AF] hover:bg-[#F3F4F6] cursor-pointer border-t border-[#E1E5EA] rounded-b-lg"
+            >
+              Clear
+            </div>
+          )}
         </div>
       )}
     </div>
