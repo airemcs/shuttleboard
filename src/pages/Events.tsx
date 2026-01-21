@@ -259,7 +259,7 @@ export default function Events() {
           <Tabs tabs={tabs} defaultValue="all" onChange={setActiveTab} />
 
           <div className="flex flex-wrap gap-2">
-            <Chip label="Date" options={dateOptions} value={date} onChange={setDate} />
+            {/* <Chip label="Date" options={dateOptions} value={date} onChange={setDate} /> */}
             <MultiSelectChip label="Level" groups={levelGroups} value={levels} onChange={setLevels} />
             <MultiSelectChip label="Category" options={categoryOptions} value={categories} onChange={setCategories} />
             

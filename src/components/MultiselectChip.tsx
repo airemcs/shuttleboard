@@ -128,7 +128,7 @@ export default function MultiSelectChip({ label, options, groups, value, onChang
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 bg-white border border-[#E1E5EA] rounded-lg shadow-lg z-50 min-w-[150px] max-h-64 overflow-y-auto">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-[#E1E5EA] rounded-lg shadow-lg z-50 w-max min-w-[150px] max-h-64 overflow-y-auto">
           {groups ? renderGroupedOptions() : renderFlatOptions()}
           {hasSelection && (
             <div
