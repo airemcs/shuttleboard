@@ -100,6 +100,11 @@ export default function Details() {
 
   const deadlineDisplay = getDeadlineDisplayValue();
 
+  // Get province from city (same logic as Card component)
+  const province = event.city && event.city.includes(",") 
+    ? event.city.split(",").pop()?.trim() 
+    : event.city;
+
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <div className="w-full bg-white border-b border-[#E1E5EA]">
@@ -149,7 +154,11 @@ export default function Details() {
               label="DATES" 
               value={event.date ? event.date : <span className="text-tertiary-black italic normal-case">To Be Announced</span>} 
             />
-            <InfoRow icon={<FaLocationDot className="size-4 text-[#4A5568]" />} label="LOCATION" value={event.location} />
+            <InfoRow 
+              icon={<FaLocationDot className="size-4 text-[#4A5568]" />} 
+              label="LOCATION" 
+              value={`${event.location}, ${province}`} 
+            />
             <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />
             <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={skillLevelText} />
