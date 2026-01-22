@@ -159,7 +159,6 @@ export default function Details() {
               label="LOCATION" 
               value={`${event.location}, ${province}`} 
             />
-            <InfoRow icon={<FaLayerGroup className="size-4 text-[#4A5568]" />} label="EVENT TYPE" value={event.eventType} />
             <InfoRow icon={<HiMiniSquares2X2 className="size-4 text-[#4A5568]" />} label="CATEGORIES" value={event.categories.join(", ")} />
             <InfoRow icon={<FaStar className="size-4 text-[#4A5568]" />} label="SKILL LEVEL" value={skillLevelText} />
             {deadlineDisplay && (
