@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar"
 import Return from "@/components/Return"
 import Pill from "@/components/Pill"
-import { FaCalendar, FaLayerGroup, FaStar, FaBriefcase, FaClock } from "react-icons/fa";
+import { FaCalendar, FaStar, FaBriefcase, FaClock } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { HiMiniSquares2X2 } from "react-icons/hi2";
