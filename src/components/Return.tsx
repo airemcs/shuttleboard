@@ -1,31 +1,35 @@
-import { Link } from "react-router-dom";
-import { MdNavigateBefore } from "react-icons/md";
-
-type TextLinkSize = "sm" | "md" | "lg";
+import { useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
 interface ReturnProps {
   text: string;
-  href: string;
-  size?: TextLinkSize;
+  href?: string;
+  size?: "sm" | "md";
 }
 
-const sizeStyles: Record<TextLinkSize, string> = {
-  sm: "text-sm",
-  md: "text-base",
-  lg: "text-lg",
-};
-
-const iconSizeStyles: Record<TextLinkSize, string> = {
-  sm: "text-base",
-  md: "text-xl",
-  lg: "text-2xl",
-};
-
 export default function Return({ text, href, size = "md" }: ReturnProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (href) {
+      navigate(href);
+    } else {
+      navigate(-1); // Go back to previous page
+    }
+  };
+
+  const sizeClasses = {
+    sm: "text-sm gap-1",
+    md: "text-base gap-2",
+  };
+
   return (
-    <Link to={href} className="flex items-center text-primary-green w-fit">
-      <MdNavigateBefore className={iconSizeStyles[size]} />
-      <span className={`font-sf-bold ${sizeStyles[size]}`}>{text}</span>
-    </Link>
+    <button
+      onClick={handleClick}
+      className={`flex items-center font-sf-medium text-secondary-black hover:text-primary-black transition-colors cursor-pointer ${sizeClasses[size]}`}
+    >
+      <FiArrowLeft className="size-4" />
+      {text}
+    </button>
   );
 }

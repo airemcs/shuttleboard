@@ -115,7 +115,7 @@ export default function Details() {
 
       <div className="mx-auto max-w-7xl lg:max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-y-4 lg:gap-y-6 py-8">
-          <Return text="Back to Events" href="/events" size="sm" />
+          <Return text="Back to Events" size="sm" />
 
           {event.image && !imageError ? (
             <img 

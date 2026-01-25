@@ -5,10 +5,12 @@ import Details from "@/pages/Details";
 import Submission from "@/pages/Submission";
 import NotFound from "@/pages/NotFound";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ScrollToTop from "@/components/Scrolltotop";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
