@@ -43,9 +43,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary-blue: #22356F;
-  --color-primary-blue-hover: #1C2C5E;
-  --color-primary-blue-light: #E6EBF5;
+  --color-primary-blue: #4B3F72;
+  --color-primary-blue-hover: #3F345F;
+  --color-primary-blue-light: #ECEAF3;
   
   --color-primary-green: #2D5A4A;
   --color-primary-green-hover: #245544;
