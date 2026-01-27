@@ -4,7 +4,6 @@ import Events from "@/pages/Events";
 import Details from "@/pages/Details";
 import Submission from "@/pages/Submission";
 import NotFound from "@/pages/NotFound";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import ScrollToTop from "@/components/Scrolltotop";
 
 export default function App() {
@@ -18,7 +17,6 @@ export default function App() {
         <Route path="/submit" element={<Submission />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <ThemeSwitcher />
     </BrowserRouter>
   );
 }

@@ -13,7 +13,7 @@ export default function AboutSection({ content }: AboutSectionProps) {
         <span className="font-sf-medium tracking-wide">ABOUT THIS EVENT</span>
       </div>
       
-      <div className="flex flex-col font-sf-regular gap-y-4 text-primary-black whitespace-pre-line">
+      <div className="flex flex-col font-sf-regular gap-y-4 text-primary-black whitespace-pre-line warp-break-words">
         {content.map((paragraph, index) => (
           <span key={index}>{paragraph}</span>
         ))}
