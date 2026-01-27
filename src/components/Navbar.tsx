@@ -31,9 +31,9 @@ export default function Navbar() {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-3">
-        <Link to="/" className="flex items-end gap-1">
-          <img src="/icon.png" className="size-10 md:size-12" alt="" />
-          <span className="font-sf-bold text-lg md:text-2xl mb-0.5">Shuttleboard PH</span>
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/icon.svg" className="size-8 md:size-10" alt="" />
+          <span className="font-sf-bold text-2xl md:text-3xl mt-1 text-primary-black">Shuttleboard PH</span>
         </Link>
 
         <button 

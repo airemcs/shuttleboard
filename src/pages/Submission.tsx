@@ -36,9 +36,31 @@ export default function Submission() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [validationErrors, setValidationErrors] = useState<{ eventType?: string; categories?: string }>({});
+
+  const validateForm = (): boolean => {
+    const errors: { eventType?: string; categories?: string } = {};
+
+    if (!eventType) {
+      errors.eventType = "Please select an event type";
+    }
+
+    if (categories.length === 0) {
+      errors.categories = "Please select at least one category";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Validate custom fields
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
@@ -64,6 +86,7 @@ export default function Submission() {
         setEventType("");
         setCategories([]);
         setDescription("");
+        setValidationErrors({});
       } else {
         const data = await response.json();
         setError(data?.errors?.[0]?.message || "Something went wrong. Please try again.");
@@ -72,6 +95,21 @@ export default function Submission() {
       setError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Clear validation error when user selects a value
+  const handleEventTypeChange = (value: string) => {
+    setEventType(value);
+    if (validationErrors.eventType) {
+      setValidationErrors((prev) => ({ ...prev, eventType: undefined }));
+    }
+  };
+
+  const handleCategoriesChange = (values: string[]) => {
+    setCategories(values);
+    if (validationErrors.categories) {
+      setValidationErrors((prev) => ({ ...prev, categories: undefined }));
     }
   };
 
@@ -179,23 +217,33 @@ export default function Submission() {
             placeholder="eg. Manila"
           />
 
-          <Select
-            id="type"
-            label="Event Type"
-            required
-            placeholder="Select Event Type"
-            options={eventTypeOptions}
-            value={eventType}
-            onChange={setEventType}
-          />
+          <div className="flex flex-col gap-y-1.5">
+            <Select
+              id="type"
+              label="Event Type"
+              required
+              placeholder="Select Event Type"
+              options={eventTypeOptions}
+              value={eventType}
+              onChange={handleEventTypeChange}
+            />
+            {validationErrors.eventType && (
+              <span className="text-sm text-red-600 font-sf-medium">{validationErrors.eventType}</span>
+            )}
+          </div>
 
-          <CheckboxGroup
-            label="Categories"
-            required
-            options={categoryOptions}
-            values={categories}
-            onChange={setCategories}
-          />
+          <div className="flex flex-col gap-y-1.5">
+            <CheckboxGroup
+              label="Categories"
+              required
+              options={categoryOptions}
+              values={categories}
+              onChange={handleCategoriesChange}
+            />
+            {validationErrors.categories && (
+              <span className="text-sm text-red-600 font-sf-medium">{validationErrors.categories}</span>
+            )}
+          </div>
 
           <Input
             id="levels"
