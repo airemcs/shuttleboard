@@ -41,7 +41,7 @@ export function getRegistrationInfo(
 
   let status: RegistrationStatus;
   
-  if (daysLeft < 0) {
+  if (daysLeft <= 0) {
     status = "closed";
   } else if (daysLeft <= closingSoonThreshold) {
     status = "closing-soon";
