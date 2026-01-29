@@ -24,11 +24,22 @@ export default function Details() {
   const event = events.find((e) => e.slug === slug);
   const [imageError, setImageError] = useState(false);
 
+  // Get province from city (same logic as Card component)
+  const province = event?.city && event.city.includes(",") 
+    ? event.city.split(",").pop()?.trim() 
+    : event?.city;
+
   useSEO({
     title: event ? `${event.title} - ${event.location}` : "Event Not Found",
     description: event 
-      ? `${event.title} on ${event.date} at ${event.location}. ${event.categories.join(", ")}.`
-      : "The event you're looking for could not be found."
+      ? `${event.title} on ${event.date || "TBA"} at ${event.location}, ${province}. ${event.categories.join(", ")}. ${event.skillLevel}.`
+      : "The event you're looking for could not be found.",
+    keywords: event 
+      ? `${event.title}, badminton tournament ${province}, ${event.categories.join(", ")}, ${event.eventType}, badminton ${event.location}`
+      : undefined,
+    image: event?.image ? `https://www.shuttleboard.ph${event.image}` : undefined,
+    url: event ? `/events/${event.slug}` : undefined,
+    type: "article",
   });
 
   if (!event) {
@@ -99,11 +110,6 @@ export default function Details() {
   };
 
   const deadlineDisplay = getDeadlineDisplayValue();
-
-  // Get province from city (same logic as Card component)
-  const province = event.city && event.city.includes(",") 
-    ? event.city.split(",").pop()?.trim() 
-    : event.city;
 
   return (
     <div className="min-h-screen bg-[#FAFBFC]">

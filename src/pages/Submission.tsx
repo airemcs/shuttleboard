@@ -13,21 +13,22 @@ import useSEO from "@/hooks/useSEO";
 const categoryOptions = [
   { value: "mens-doubles", label: "Men's Doubles" },
   { value: "womens-doubles", label: "Women's Doubles" },
+  { value: "non-doubles", label: "Non-Gender Doubles" },
   { value: "mixed-doubles", label: "Mixed Doubles" },
   { value: "mens-singles", label: "Men's Singles" },
   { value: "womens-singles", label: "Women's Singles" },
 ];
 
 const eventTypeOptions = [
-  { value: "tournament", label: "Tournament" },
-  { value: "league", label: "League" },
-  { value: "open-play", label: "Open Play" },
+  { value: "tournament", label: "Tournament" }
 ];
 
 export default function Submission() {
   useSEO({
     title: "Submit Event",
-    description: "Add your badminton tournament, league, or open play session to Shuttleboard."
+    description: "Add your badminton tournament, league, or open play session to Shuttleboard. Share your event with the PH badminton community.",
+    keywords: "submit badminton event, add tournament Philippines, badminton event submission, PH badminton directory",
+    url: "/submit",
   });
 
   const [eventType, setEventType] = useState("");
@@ -187,7 +188,7 @@ export default function Submission() {
             type="text"
             label="Event Name"
             required
-            placeholder="eg. Manila Open 2026"
+            placeholder="Shuttleboard PH Tournament 2026"
           />
 
           <Input
@@ -196,7 +197,7 @@ export default function Submission() {
             type="text"
             label="Event Date"
             required
-            placeholder="eg. March 12 - 14, 2026"
+            placeholder="February 2, 2026"
           />
 
           <Input
@@ -205,7 +206,7 @@ export default function Submission() {
             type="text"
             label="Venue"
             required
-            placeholder="eg. Manila Sports Complex"
+            placeholder="The Playground Badminton Court"
           />
 
           <Input
@@ -214,7 +215,7 @@ export default function Submission() {
             type="text"
             label="City"
             required
-            placeholder="eg. Manila"
+            placeholder="Las Pinas City"
           />
 
           <div className="flex flex-col gap-y-1.5">
@@ -251,7 +252,7 @@ export default function Submission() {
             type="text"
             label="Skill Levels"
             required
-            placeholder="eg. Beginner, Intermediate, Advanced"
+            placeholder="Beginner, Intermediate, Advanced, Level A - D"
           />
 
           <Input
@@ -260,7 +261,7 @@ export default function Submission() {
             type="text"
             label="Organizer"
             required
-            placeholder="eg. Manila Badminton Association"
+            placeholder="Manila Badminton Association"
           />
 
           <Input
@@ -294,7 +295,7 @@ export default function Submission() {
             name="flyerLink"
             type="url"
             label="Event Flyer Link (Optional)"
-            placeholder="https://drive.google.com/... or https://imgur.com/..."
+            placeholder="https://drive.google.com/..."
           />
         </div>
 

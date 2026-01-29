@@ -31,7 +31,9 @@ const events = eventsData
 export default function Home() {
   useSEO({
     title: "Shuttleboard",
-    description: "Discover badminton tournaments, leagues, and open play sessions across the Philippines."
+    description: "Discover badminton tournaments, leagues, and open play sessions across the Philippines. Find events in Metro Manila, Pampanga, Cavite, and more.",
+    keywords: "badminton Philippines, badminton tournaments, PH badminton events, shuttleboard, Metro Manila badminton, Pampanga badminton, Cavite badminton, shuttle tournament",
+    url: "/",
   });
 
   return (
