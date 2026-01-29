@@ -27,7 +27,7 @@ export default function useSEO({
   useEffect(() => {
     // Set title
     const fullTitle = title === SITE_NAME 
-      ? `${SITE_NAME} — PH Badminton Events Directory` 
+      ? `${SITE_NAME} — PH Badminton Tournaments Directory` 
       : `${title} | ${SITE_NAME}`;
     document.title = fullTitle;
 
