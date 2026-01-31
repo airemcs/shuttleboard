@@ -276,5 +276,26 @@
       
       "Let’s smash, serve, and make a difference — sabay-sabay para sa ating mga little warriors 💛💛💛"
     ]
+  },
+  {
+    "id": 9,
+    "slug": "bbc-1st-invitational-tournament-2026",
+    "title": "BBC 1st Invitational Tournament",
+    "date": "March 1, 2026",
+    "dateValue": "2026-03-01",
+    "registrationDeadline": "2/26/2026",
+    "location": "Budz Badminton Court",
+    "city": "Bacoor, Cavite",
+    "image": "/posters/bbc-1st-invitational-tournament-2026.jpg",
+    "eventType": "Tournament",
+    "skillLevel": "Level C - E",
+    "skillLevelDisplay": ["C", "D", "E"],
+    "categories": ["Men's Doubles", "Women's Doubles", "Mixed Doubles"],
+    "organizer": "Budz Badminton Court",
+    "organizerLink": "https://www.facebook.com/budzbadmintoncourt",
+    "registrationLink": "https://www.facebook.com/photo/?fbid=1341460557999797&set=pb.100064075960691.-2207520000",
+    "description": [
+      ""
+    ]
   }
 ]
